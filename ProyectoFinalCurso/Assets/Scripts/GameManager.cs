@@ -5,9 +5,11 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public Transform playerObject, camObject;
+    public Transform[] cubes;
 
     PlayerController player;
     CamRotator cam;
+    Box[] cube;
 
     public bool aSide = true;
 
@@ -18,6 +20,13 @@ public class GameManager : MonoBehaviour
     {
         player = playerObject.gameObject.GetComponent<PlayerController>();
         cam = camObject.gameObject.GetComponent<CamRotator>();
+
+        cube = new Box[cubes.Length];
+
+        for (int i = 0; i < cubes.Length; i++)
+        {
+            cube[i] = cubes[i].GetComponent<Box>();
+        }
     }
 
     // Update is called once per frame
@@ -36,6 +45,10 @@ public class GameManager : MonoBehaviour
             cam.IsSideA(aSide);
             aSide = !aSide;
             player.IsASide(aSide);
+            for (int i = 0; i < cubes.Length; i++)
+            {
+                cube[i].TellSide(aSide);
+            }
         }
 
         player.PlayerCanMove(cam.IsStopped());
