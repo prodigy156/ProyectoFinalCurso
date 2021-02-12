@@ -9,7 +9,9 @@ public class GameManager : MonoBehaviour
     PlayerController player;
     CamRotator cam;
 
-    bool aSide = true;
+    public bool aSide = true;
+
+    bool onPortal = false;
 
     // Start is called before the first frame update
     void Start()
@@ -22,7 +24,13 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         bool wantToRotate = Input.GetKey(KeyCode.UpArrow);
-        if (wantToRotate && cam.IsStopped())
+
+        if (onPortal)
+        {
+            int i = 0;
+        }
+
+        if (wantToRotate && cam.IsStopped() && onPortal)
         {
             cam.RotateCam();
             cam.IsSideA(aSide);
@@ -32,5 +40,10 @@ public class GameManager : MonoBehaviour
 
         player.PlayerCanMove(cam.IsStopped());
 
+    }
+
+    public void OnPortal(bool _onPortal)
+    {
+        onPortal = _onPortal;
     }
 }

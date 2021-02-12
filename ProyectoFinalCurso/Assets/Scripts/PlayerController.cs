@@ -18,6 +18,10 @@ public class PlayerController : MonoBehaviour
     private bool canJump;
     private Rigidbody playerRb;
 
+    public GameManager gameManager;
+
+
+
     float timer = 0;
     bool canMove;
     bool ASide;
@@ -26,9 +30,11 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        yRotation = 0;
+        yRotation = 90;
         playerRb = GetComponent<Rigidbody>();
         _playerSpeed = playerSpeed;
+
+        
     }
 
     void Update()
@@ -39,21 +45,19 @@ public class PlayerController : MonoBehaviour
         {
             inputValue = Input.GetAxis("Horizontal");
 
-            if (!ASide)
+            if (!gameManager.aSide)
             {
                 inputValue *= -1;
             }
-            move = new Vector3(0, 0, inputValue);
+            move = new Vector3(inputValue, 0, 0);
 
             bool jump = Input.GetKey(KeyCode.Space);
 
-            transform.position += new Vector3(inputValue * playerSpeed * Time.deltaTime, 0, 0);
+            //transform.position += new Vector3(inputValue * playerSpeed * Time.deltaTime, 0, 0);
 
             if (Input.GetKeyDown(KeyCode.Space) && canJump)
             {
-                canJump = false;
                 playerRb.AddForce(0, jumpForce, 0, ForceMode.Impulse);
-
             }
 
             if (canJump == false)
@@ -74,9 +78,9 @@ public class PlayerController : MonoBehaviour
             yRotation += rotationSpeed * Time.deltaTime;
             LastKey = 1;
 
-            if (yRotation >= 180)
+            if (yRotation >= 90)
             {
-                yRotation = 180;
+                yRotation = 90;
                 flip = true;
             }
         }
@@ -85,30 +89,30 @@ public class PlayerController : MonoBehaviour
             yRotation -= rotationSpeed * Time.deltaTime;
             LastKey = 2;
 
-            if (yRotation <= 0)
+            if (yRotation <= -90)
             {
-                yRotation = 0;
+                yRotation = -90;
                 flip = false;
             }
         }
         else
         {
-            if (LastKey == 1 && yRotation < 180)
+            if (LastKey == 1 && yRotation < 90)
             {
                 yRotation += rotationSpeed * Time.deltaTime;
-                if (yRotation >= 180)
+                if (yRotation >= 90)
                 {
-                    yRotation = 180;
+                    yRotation = 90;
                     flip = true;
                 }
             }
-            else if (LastKey == 2 && yRotation > 0)
+            else if (LastKey == 2 && yRotation > -90)
             {
                 yRotation -= rotationSpeed * Time.deltaTime;
 
-                if (yRotation <= 0)
+                if (yRotation <= -90)
                 {
-                    yRotation = 0;
+                    yRotation = -90;
                     flip = false;
                 }
             }
@@ -118,13 +122,18 @@ public class PlayerController : MonoBehaviour
         this.transform.position += (move * Time.deltaTime * playerSpeed);
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision other)
     {
         canJump = true;
     }
-    private void OnTriggerExit(Collider other)
+    private void OnCollisionExit(Collision other)
     {
         canJump = false;
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        canJump = true;
     }
 
     public void IsASide(bool _isASide)

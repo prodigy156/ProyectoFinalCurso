@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
+    public Transform gameManagerObject;
+    GameManager gameManager;
+
     public float speed;
 
     public float jumpVel;
@@ -21,6 +24,7 @@ public class PlayerManager : MonoBehaviour
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody>();
+        gameManager = gameManagerObject.gameObject.GetComponent<GameManager>();
     }
 
     // Update is called once per frame
