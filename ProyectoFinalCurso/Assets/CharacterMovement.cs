@@ -9,6 +9,9 @@ public class CharacterMovement : MonoBehaviour
 
     public float speed = 6f;
 
+
+    private 
+
     // Update is called once per frame
     void Update()
     {
@@ -19,7 +22,14 @@ public class CharacterMovement : MonoBehaviour
         if(direction.magnitude >= 0.1f)
         {
 
+            if(horizontal < 0f)
+            {
+                
+            }
+            else if(horizontal > 0f)
+            {
 
+            }
 
             controller.Move(direction * speed * Time.deltaTime);
         }
