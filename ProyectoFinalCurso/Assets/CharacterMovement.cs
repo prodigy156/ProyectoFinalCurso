@@ -5,9 +5,13 @@ using UnityEngine;
 public class CharacterMovement : MonoBehaviour
 {
     public CharacterController controller;
-    public GameObject box;
+    public Transform box;
 
     public float speed = 6f;
+    public float turnSpeed = 1000f;
+
+    private bool lookingRight = true;
+    float yRotation = 90;
 
 
     private 
@@ -24,14 +28,31 @@ public class CharacterMovement : MonoBehaviour
 
             if(horizontal < 0f)
             {
-                
+                lookingRight = true;
             }
             else if(horizontal > 0f)
             {
-
+                lookingRight = false;
             }
 
             controller.Move(direction * speed * Time.deltaTime);
         }
+
+        if(lookingRight && yRotation < 90)
+        {
+            yRotation += turnSpeed * Time.deltaTime;
+
+            if (yRotation > 90)
+                yRotation = 90;
+        }
+        else if (!lookingRight && yRotation > -90f)
+        {
+            yRotation -= turnSpeed * Time.deltaTime;
+
+            if (yRotation < -90f)
+                yRotation = -90f;
+        }
+
+        box.rotation = Quaternion.Euler(new Vector3(0f, yRotation, 0f));
     }
 }

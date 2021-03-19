@@ -1224,7 +1224,7 @@ PrefabInstance:
         type: 3}
       propertyPath: box
       value: 
-      objectReference: {fileID: 7174958121691321781}
+      objectReference: {fileID: 7174958121691321785}
     - target: {fileID: 3829753981621158114, guid: 5c37196bb4a863b4d9cedf1bd76b80f1,
         type: 3}
       propertyPath: m_Name
@@ -1287,15 +1287,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5c37196bb4a863b4d9cedf1bd76b80f1, type: 3}
---- !u!1 &7174958121691321781 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3829753983177201058, guid: 5c37196bb4a863b4d9cedf1bd76b80f1,
-    type: 3}
-  m_PrefabInstance: {fileID: 7174958121691321780}
-  m_PrefabAsset: {fileID: 0}
 --- !u!143 &7174958121691321782 stripped
 CharacterController:
   m_CorrespondingSourceObject: {fileID: 1323391912427737527, guid: 5c37196bb4a863b4d9cedf1bd76b80f1,
+    type: 3}
+  m_PrefabInstance: {fileID: 7174958121691321780}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7174958121691321785 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3829753983177201065, guid: 5c37196bb4a863b4d9cedf1bd76b80f1,
     type: 3}
   m_PrefabInstance: {fileID: 7174958121691321780}
   m_PrefabAsset: {fileID: 0}
