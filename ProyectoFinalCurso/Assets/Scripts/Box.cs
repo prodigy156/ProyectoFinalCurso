@@ -30,11 +30,11 @@ public class Box : MonoBehaviour
         {
             if (lastSide)
             {
-                bc.center = boxB.position;
+                bc.center = new Vector3(bc.center.x, bc.center.y, boxB.position.z);
             }
             else
             {
-                bc.center = boxA.position;
+                bc.center = new Vector3(bc.center.x, bc.center.y, boxA.position.z);
             }
         }
     }
