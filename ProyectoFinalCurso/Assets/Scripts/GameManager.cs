@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
             player.IsASide(aSide);
         }
 
-        //player.PlayerCanMove(cam.IsStopped());
+        player.PlayerCanMove(cam.IsStopped());
 
     }
 
