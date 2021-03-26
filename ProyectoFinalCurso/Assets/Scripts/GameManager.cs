@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
 {
     public Transform playerObject, camObject;
 
-    PlayerController player;
+    CharacterMovement player;
     CamRotator cam;
 
     public bool aSide = true;
@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        player = playerObject.gameObject.GetComponent<PlayerController>();
+        player = playerObject.gameObject.GetComponent<CharacterMovement>();
         cam = camObject.gameObject.GetComponent<CamRotator>();
     }
 
@@ -35,10 +35,10 @@ public class GameManager : MonoBehaviour
             cam.RotateCam();
             cam.IsSideA(aSide);
             aSide = !aSide;
-            player.IsASide(aSide);
+            player.IsOnASide(aSide);
         }
 
-        //player.PlayerCanMove(cam.IsStopped());
+        player.CanMove(cam.IsStopped());
 
     }
 

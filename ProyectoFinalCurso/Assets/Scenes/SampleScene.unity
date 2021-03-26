@@ -1242,6 +1242,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1638025778237297034, guid: 5c37196bb4a863b4d9cedf1bd76b80f1,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.742
+      objectReference: {fileID: 0}
     - target: {fileID: 2239765972891147274, guid: 5c37196bb4a863b4d9cedf1bd76b80f1,
         type: 3}
       propertyPath: groundDistance
@@ -1265,7 +1270,7 @@ PrefabInstance:
     - target: {fileID: 3829753981621158119, guid: 5c37196bb4a863b4d9cedf1bd76b80f1,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.374
+      value: -0.4
       objectReference: {fileID: 0}
     - target: {fileID: 3829753981621158119, guid: 5c37196bb4a863b4d9cedf1bd76b80f1,
         type: 3}
