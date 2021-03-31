@@ -91,14 +91,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 3829753981621158114}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5224bd3389cb22d47b9823e1aaa29756, type: 3}
+  m_Script: {fileID: 11500000, guid: 13c2145ecb0e7eb45b01a6aa3ac61fce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 1323391912427737527}
   box: {fileID: 3829753983177201065}
   speed: 6
   turnSpeed: 1000
-  gravity: -25
+  gravity: -9.81
   groundCheck: {fileID: 1638025778237297034}
   groundDistance: 0.1
   groundMask:

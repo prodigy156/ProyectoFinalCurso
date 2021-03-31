@@ -1257,6 +1257,11 @@ PrefabInstance:
       propertyPath: gravity
       value: -30
       objectReference: {fileID: 0}
+    - target: {fileID: 2239765972891147274, guid: 5c37196bb4a863b4d9cedf1bd76b80f1,
+        type: 3}
+      propertyPath: groundMask.m_Bits
+      value: 256
+      objectReference: {fileID: 0}
     - target: {fileID: 3829753981621158114, guid: 5c37196bb4a863b4d9cedf1bd76b80f1,
         type: 3}
       propertyPath: m_Name
