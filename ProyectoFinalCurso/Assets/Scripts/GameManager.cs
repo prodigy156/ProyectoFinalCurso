@@ -29,16 +29,9 @@ public class GameManager : MonoBehaviour
             cam.RotateCam();
             cam.IsSideA(aSide);
             aSide = !aSide;
-<<<<<<< HEAD
             player.IsASide();
         }
         player.CanPlayerMove(cam.IsStopped());
-=======
-            player.IsOnASide(aSide);
-        }
-
-        player.CanMove(cam.IsStopped());
->>>>>>> c7fac48c2ac03894494e38967b86205f01b8239e
 
     }
 
