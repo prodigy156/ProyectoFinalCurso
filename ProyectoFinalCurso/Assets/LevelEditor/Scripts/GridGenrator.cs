@@ -6,7 +6,7 @@ public class GridGenrator : MonoBehaviour
 {
     public int width = 11;
     public int height = 7;
-    public int offset = 1;
+    public float offset = 1;
 
     public GameObject squarePrefab;
 
