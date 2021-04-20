@@ -46,4 +46,9 @@ public class GameManager : MonoBehaviour
     {
         onPortal = _onPortal;
     }
+
+    public void OnKeyCollected()
+    {
+
+    }
 }
