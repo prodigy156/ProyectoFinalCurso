@@ -19,6 +19,13 @@ public class EditorManager : MonoBehaviour
     bool instantiated = false;
     GameObject draggedAsset;
     GameObject unit;
+
+    [Header("Cell Check")]
+    //cell available check
+    GameObject[,] grid;
+    int gridHeight, gridWidth;
+    GameObject pointedCell;
+    bool canPlace;
     
     enum Assets
     {
@@ -52,12 +59,15 @@ public class EditorManager : MonoBehaviour
     {
         unit = FloorWall1P;
         instance = this;
+        grid = GridGenrator.instance.grid;
+        gridHeight = grid.GetLength(0);
+        gridWidth = grid.GetLength(1);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        //set unit as the actual asset selected prefab
         switch (currentAsset)
         {
             case Assets.FloorWall1P:
@@ -72,27 +82,34 @@ public class EditorManager : MonoBehaviour
             default:
             break;
         }
-            if(!instantiated)
-            {
-                draggedAsset = Instantiate(unit, Vector3.zero, Quaternion.identity) as GameObject;
-                draggedAsset.transform.SetParent(LevelAssets);
-                draggedAsset.GetComponent<SpriteRenderer>().enabled = false;
-                instantiated = true;
-            }
 
-            Ray _ray = cam.ScreenPointToRay(Input.mousePosition);
-            Debug.DrawRay(_ray.origin, _ray.direction * 1000f, Color.red);
-            RaycastHit _hit;
 
-            if(Physics.Raycast(_ray, out _hit, 1000f, cellLayer))
-            {
-                draggedAsset.GetComponent<SpriteRenderer>().enabled = true;
-                draggedAsset.transform.position = _hit.collider.transform.position + new Vector3(0, 0, -0.1f);
-            }
-            else
-            {
-                draggedAsset.GetComponent<SpriteRenderer>().enabled = false;
-            }
+        if(!instantiated)
+        {
+            draggedAsset = Instantiate(unit, Vector3.zero, Quaternion.identity) as GameObject;
+            draggedAsset.transform.SetParent(LevelAssets);
+            draggedAsset.GetComponent<SpriteRenderer>().enabled = false;
+            instantiated = true;
+        }
+
+        Ray _ray = cam.ScreenPointToRay(Input.mousePosition);
+        Debug.DrawRay(_ray.origin, _ray.direction * 1000f, Color.red);
+        RaycastHit _hit;
+
+        if(Physics.Raycast(_ray, out _hit, 1000f, cellLayer))
+        {
+            draggedAsset.GetComponent<SpriteRenderer>().enabled = true;
+            draggedAsset.transform.position = _hit.collider.transform.position + new Vector3(0, 0, -0.2f);
+
+            pointedCell = _hit.transform.gameObject;
+            CheckCanPlace(pointedCell);
+        }
+        else
+        {
+            draggedAsset.GetComponent<SpriteRenderer>().enabled = false;
+        }
+
+
     }
 
     /// <summary>
@@ -101,6 +118,7 @@ public class EditorManager : MonoBehaviour
     /// </summary>
     public void AssignAssetToGrid()
     {
+        draggedAsset.transform.position += new Vector3(0, 0, 0.1f);
         instantiated = false;
     }
 
@@ -113,5 +131,34 @@ public class EditorManager : MonoBehaviour
             currentAsset = (Assets)assetID;
         }
         
+    }
+
+    void CheckCanPlace(GameObject cell)
+    {
+        int posY = -1;
+        int posX = -1;
+
+        for(int y = 0; y < gridHeight; y++)
+        {
+            for(int x = 0; x < gridWidth; x++)
+            {
+                if(grid[y, x].Equals(cell))
+                {
+                    posY= y;
+                    posX= x;                    
+                }
+            }
+        }
+       
+       
+        if(!grid[posY, posX].gameObject.GetComponent<GridSquare>().available)
+        {
+            draggedAsset.GetComponent<SpriteRenderer>().material.color = Color.red;
+        }
+        else
+        {
+            draggedAsset.GetComponent<SpriteRenderer>().material.color = Color.white;
+        }
+
     }
 }

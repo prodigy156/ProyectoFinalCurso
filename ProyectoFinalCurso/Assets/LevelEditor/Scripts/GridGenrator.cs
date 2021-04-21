@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class GridGenrator : MonoBehaviour
 {
+    public static GridGenrator instance;
+
+
     public int width = 11;
     public int height = 7;
     public float offset = 1;
@@ -13,32 +16,15 @@ public class GridGenrator : MonoBehaviour
     public Transform gridReference;
     public Transform Grid;
 
-    GameObject[,] grid;
+    public GameObject[,] grid;
 
     /// <summary>
     /// Awake is called when the script instance is being loaded.
     /// </summary>
     void Awake()
     {
+        instance = this;
         GridGenerator();
-    }
-    
-    
-    /// <summary>
-    /// Start is called on the frame when a script is enabled just before
-    /// any of the Update methods is called the first time.
-    /// </summary>
-    void Start()
-    {
-        
-    }
-    
-    /// <summary>
-    /// Update is called every frame, if the MonoBehaviour is enabled.
-    /// </summary>
-    void Update()
-    {
-        
     }
 
     void GridGenerator()
