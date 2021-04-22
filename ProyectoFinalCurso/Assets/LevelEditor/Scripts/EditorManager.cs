@@ -51,6 +51,14 @@ public class EditorManager : MonoBehaviour
     [SerializeField]
     Assets currentAsset;
 
+    enum AssetSize
+    {
+        oneByOne,
+        twoByOne,
+        twoByTwo,
+        twoByFour
+    }
+    AssetSize currentSize;
     /// <summary>
     /// Start is called on the frame when a script is enabled just before
     /// any of the Update methods is called the first time.
@@ -72,12 +80,15 @@ public class EditorManager : MonoBehaviour
         {
             case Assets.FloorWall1P:
             unit = FloorWall1P;
+            currentSize = AssetSize.oneByOne;
             break;
             case Assets.Box1P:
             unit = Box1P;
+            currentSize = AssetSize.twoByTwo;
             break;
             case Assets.LongBox1P:
             unit = LongBox1P;
+            currentSize = AssetSize.twoByFour;
             break;
             default:
             break;
@@ -108,8 +119,6 @@ public class EditorManager : MonoBehaviour
         {
             draggedAsset.GetComponent<SpriteRenderer>().enabled = false;
         }
-
-
     }
 
     /// <summary>
@@ -130,13 +139,12 @@ public class EditorManager : MonoBehaviour
             instantiated = false;
             currentAsset = (Assets)assetID;
         }
-        
     }
 
     void CheckCanPlace(GameObject cell)
     {
-        int posY = -1;
         int posX = -1;
+        int posY = -1;
 
         for(int y = 0; y < gridHeight; y++)
         {
@@ -144,20 +152,66 @@ public class EditorManager : MonoBehaviour
             {
                 if(grid[y, x].Equals(cell))
                 {
-                    posY= y;
-                    posX= x;                    
+                    posX= y;
+                    posY= x;                    
                 }
             }
         }
        
        
-        if(!grid[posY, posX].gameObject.GetComponent<GridSquare>().available)
+        if(!grid[posX, posY].gameObject.GetComponent<GridSquare>().available)
         {
             draggedAsset.GetComponent<SpriteRenderer>().material.color = Color.red;
         }
         else
         {
             draggedAsset.GetComponent<SpriteRenderer>().material.color = Color.white;
+        }
+
+        switch (currentSize)
+        {
+            case AssetSize.oneByOne:
+                if(!grid[posX, posY].gameObject.GetComponent<GridSquare>().available)
+                {
+                    draggedAsset.GetComponent<SpriteRenderer>().material.color = Color.red;
+                }
+                else
+                {
+                    draggedAsset.GetComponent<SpriteRenderer>().material.color = Color.white;
+                }
+            break;
+            case AssetSize.twoByTwo:
+                if(!grid[posX, posY].gameObject.GetComponent<GridSquare>().available ||
+                   !grid[posX+1, posY].gameObject.GetComponent<GridSquare>().available ||
+                   !grid[posX, posY+1].gameObject.GetComponent<GridSquare>().available ||
+                   !grid[posX+1, posY +1].gameObject.GetComponent<GridSquare>().available)
+                {
+                    draggedAsset.GetComponent<SpriteRenderer>().material.color = Color.red;
+                }
+                else
+                {
+                    draggedAsset.GetComponent<SpriteRenderer>().material.color = Color.white;
+                }
+            break;
+            case AssetSize.twoByFour:
+            if(!grid[posX, posY].gameObject.GetComponent<GridSquare>().available ||
+                !grid[posX+1, posY ].gameObject.GetComponent<GridSquare>().available ||
+                !grid[posX+2, posY ].gameObject.GetComponent<GridSquare>().available ||
+                !grid[posX+3, posY ].gameObject.GetComponent<GridSquare>().available ||
+                !grid[posX, posY+1].gameObject.GetComponent<GridSquare>().available ||
+                !grid[posX+1, posY+1].gameObject.GetComponent<GridSquare>().available ||
+                !grid[posX+2, posY+1].gameObject.GetComponent<GridSquare>().available ||
+                !grid[posX+3, posY+1].gameObject.GetComponent<GridSquare>().available)
+                {
+                    draggedAsset.GetComponent<SpriteRenderer>().material.color = Color.red;
+                }
+                else
+                {
+                    draggedAsset.GetComponent<SpriteRenderer>().material.color = Color.white;
+                }
+            break;
+            default:
+            break;
         }
 
     }
