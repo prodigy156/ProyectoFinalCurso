@@ -73,7 +73,7 @@ public class PlayerController : MonoBehaviour
 
         if (inputValue < 0 && !flip)
         {
-            Debug.Log(inputValue);
+            //Debug.Log(inputValue);
 
             yRotation += rotationSpeed * Time.deltaTime;
             LastKey = 1;

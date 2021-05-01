@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Key : MonoBehaviour
 {
+    public Transform gameManagerObject;
     GameManager gameManager;
 
     public float angularSpeed;
@@ -12,11 +13,16 @@ public class Key : MonoBehaviour
     Vector3 initPos;
     float timer;
 
+    private void Awake()
+    {
+        gameManager = gameManagerObject.GetComponent<GameManager>();
+    }
+
     private void Start()
     {
         initPos = transform.position;
         timer = 0;
-        initPos = transform.position;
+        gameManager.ThereIsAKey();
     }
 
     private void Update()
@@ -29,5 +35,6 @@ public class Key : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         gameManager.OnKeyCollected();
+        gameObject.SetActive(false);
     }
 }
