@@ -14,10 +14,9 @@ public class GridSquare : MonoBehaviour
     /// </summary>
     void OnMouseDown()
     {
-        if(available)
+        if(available && EditorManager.instance.canPlace)
         {
-            EditorManager.instance.AssignAssetToGrid();
-            available = false;
+            EditorManager.instance.AssignAssetToGrid(this.gameObject);
         }
     }
 }
