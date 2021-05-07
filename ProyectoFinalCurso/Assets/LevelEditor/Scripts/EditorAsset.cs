@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EditorAsset : MonoBehaviour
 {
-    public int gridPosY, gridPosX;
+    public int gridPosY, gridPosX, opositeGridPosX;
     public int sizeY, sizeX;
     public bool twoP;
     public bool sideA;

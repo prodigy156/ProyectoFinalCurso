@@ -77,12 +77,12 @@ public class EditorManager : MonoBehaviour
         unit = FloorWall1P;
         instance = this;
         gridA = GridManager.instance.gridA;
-        gridHeight = gridA.GetLength(0);
-        gridWidth = gridA.GetLength(1);
+        gridWidth = gridA.GetLength(0);
+        gridHeight = gridA.GetLength(1);
 
         gridB = GridManager.instance.gridB;
-        gridHeight = gridB.GetLength(0);
-        gridWidth = gridB.GetLength(1);
+        gridWidth = gridB.GetLength(0);
+        gridHeight = gridB.GetLength(1);
 
         currentSide = Side.A;
         nextSide = currentSide;
@@ -136,8 +136,6 @@ public class EditorManager : MonoBehaviour
             draggedAsset.GetComponent<SpriteRenderer>().enabled = false;
         }
 
-        if(aSide) { nextSide = Side.A;}
-        else { nextSide = Side.B;}
 
         if(nextSide != currentSide)
         {
@@ -148,7 +146,7 @@ public class EditorManager : MonoBehaviour
                 {
                     if(child.gameObject.GetComponent<EditorAsset>().twoP)
                     {
-                        //child.position = new Vector3(
+                        child.position = gridA[child.gameObject.GetComponent<EditorAsset>().opositeGridPosX , child.gameObject.GetComponent<EditorAsset>().gridPosY].gameObject.transform.position;
                     }
                 }
             }
@@ -165,6 +163,7 @@ public class EditorManager : MonoBehaviour
     {
         int posX = -1;
         int posY = -1;
+        int opositePosX = -1;
         GameObject[,] grid;
 
         if( currentSide == Side.A)
@@ -180,10 +179,12 @@ public class EditorManager : MonoBehaviour
         {
             for(int x = 0; x < gridWidth; x++)
             {
-                if(grid[y, x].Equals(cell))
+                if(grid[x, y].Equals(cell))
                 {
-                    posX= y;
-                    posY= x;                    
+                    posX= x;
+                    posY= y;
+
+                    opositePosX = gridWidth - (x+1);
                 }
             }
         }
@@ -219,6 +220,8 @@ public class EditorManager : MonoBehaviour
         draggedAsset.transform.position += new Vector3(0, 0, 0.1f);
         draggedAsset.GetComponent<EditorAsset>().gridPosX = posX;
         draggedAsset.GetComponent<EditorAsset>().gridPosY = posY;
+        draggedAsset.GetComponent<EditorAsset>().opositeGridPosX = opositePosX;
+
         instantiated = false;
     }
 
@@ -255,10 +258,10 @@ public class EditorManager : MonoBehaviour
         {
             for(int x = 0; x < gridWidth; x++)
             {
-                if(grid[y, x].Equals(cell))
+                if(grid[x, y].Equals(cell))
                 {
-                    posX= y;
-                    posY= x;                    
+                    posX= x;
+                    posY= y;                    
                 }
             }
         }
@@ -278,7 +281,7 @@ public class EditorManager : MonoBehaviour
                 }
             break;
             case 2:
-                if(posX+1 < gridHeight &&  posY+1 < gridWidth)
+                if(posX+1 < gridWidth &&  posY+1 < gridHeight)
                 {
                     if(!grid[posX, posY].gameObject.GetComponent<GridSquare>().available||
                     !grid[posX+1, posY].gameObject.GetComponent<GridSquare>().available||
@@ -298,10 +301,11 @@ public class EditorManager : MonoBehaviour
                 {
                     draggedAsset.GetComponent<SpriteRenderer>().material.color = Color.red;
                     canPlace = false;
+                    Debug.Log("fuera");
                 }
             break;
             case 3:
-                if(posX+3 < gridHeight &&  posY+1 < gridWidth)
+                if(posX+3 < gridWidth &&  posY+1 < gridHeight)
                 {
                     if(!grid[posX, posY].gameObject.GetComponent<GridSquare>().available ||
                     !grid[posX+1, posY ].gameObject.GetComponent<GridSquare>().available ||
@@ -325,12 +329,23 @@ public class EditorManager : MonoBehaviour
                 {
                     draggedAsset.GetComponent<SpriteRenderer>().material.color = Color.red; 
                     canPlace = false;
+                    Debug.Log("fuera");
                 }
             break;
             default:
             break;
         }
+    }
 
-
+    public void ChangeSide()
+    {
+        if(currentSide == Side.A)
+        {
+            nextSide = Side.B;
+        }
+        else if(currentSide == Side.B)
+        {
+            nextSide = Side.A;
+        }
     }
 }
