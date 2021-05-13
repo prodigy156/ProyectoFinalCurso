@@ -18,4 +18,13 @@ public class EditorAsset : MonoBehaviour
     }
     public AssetSize size;
 
+    /// <summary>
+    /// OnMouseDown is called when the user has pressed the mouse button while
+    /// over the GUIElement or Collider.
+    /// </summary>
+    void OnMouseDown()
+    {
+        EditorManager.instance.OnAssetDeleted(this.gameObject);
+        Destroy(this.gameObject);
+    }
 }

@@ -152,11 +152,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 4181183821374300701}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf382d6e18054c44baefa9143984db2d, type: 3}
+  m_Script: {fileID: 11500000, guid: c6147866ca0170647998921ee1860c59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boxA: {fileID: 4181183821414923538}
-  boxB: {fileID: 4181183821099374465}
+  gridPosY: 0
+  gridPosX: 0
+  opositeGridPosX: 0
+  sizeY: 0
+  sizeX: 0
+  twoP: 0
+  sideA: 0
+  size: 0
 --- !u!1 &4181183821414923541
 GameObject:
   m_ObjectHideFlags: 0
