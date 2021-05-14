@@ -8,8 +8,11 @@ public class EditorManager : MonoBehaviour
 
     public Camera cam;
     public LayerMask cellLayer;
+    public LayerMask assetLayer;
     public Transform LevelSideA;
     public Transform LevelSideB;
+
+    bool drawing = true;//true if asset selected, false if eraser selected
 
     [Header ("Asset Prefabs")]
     public GameObject Box2P;
@@ -35,6 +38,7 @@ public class EditorManager : MonoBehaviour
     
      
     public EditorAsset editorAsset;
+
 
     
     enum Side
@@ -64,7 +68,8 @@ public class EditorManager : MonoBehaviour
         Door,
         Keydoor,
         FloorWall1P,
-        FloorWall2P
+        FloorWall2P,
+        Eraser
     }
     [SerializeField]
     Assets currentAsset;
@@ -96,6 +101,10 @@ public class EditorManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (currentAsset != Assets.Eraser)
+            drawing = true;
+        else
+            drawing = false;
         //set unit as the actual asset selected prefab
         switch (currentAsset)
         {
@@ -120,32 +129,32 @@ public class EditorManager : MonoBehaviour
             default:
             break;
         }
-
-
-        if(!instantiated)//if ther's no object to previsualize create one of the currents selected asset
-        {
-            draggedAsset = Instantiate(unit, Vector3.zero, Quaternion.identity) as GameObject;
-            if(currentSide == Side.A){ draggedAsset.transform.SetParent(LevelSideA);}
-            else { draggedAsset.transform.SetParent(LevelSideB); }
-            draggedAsset.GetComponent<SpriteRenderer>().enabled = false;
-            instantiated = true;
-        }
-
         Ray _ray = cam.ScreenPointToRay(Input.mousePosition);
         Debug.DrawRay(_ray.origin, _ray.direction * 1000f, Color.red);
         RaycastHit _hit;
-
-        if(Physics.Raycast(_ray, out _hit, 1000f, cellLayer))
+        if (drawing)
         {
-            draggedAsset.GetComponent<SpriteRenderer>().enabled = true;
-            draggedAsset.transform.position = _hit.collider.transform.position + new Vector3(0, 0, -0.2f);
+            if (!instantiated)//if ther's no object to previsualize create one of the currents selected asset
+            {
+                draggedAsset = Instantiate(unit, Vector3.zero, Quaternion.identity) as GameObject;
+                if (currentSide == Side.A) { draggedAsset.transform.SetParent(LevelSideA); }
+                else { draggedAsset.transform.SetParent(LevelSideB); }
+                draggedAsset.GetComponent<SpriteRenderer>().enabled = false;
+                instantiated = true;
+            }
 
-            pointedCell = _hit.transform.gameObject;
-            CheckCanPlace(pointedCell);
-        }
-        else
-        {
-            draggedAsset.GetComponent<SpriteRenderer>().enabled = false;
+            if (Physics.Raycast(_ray, out _hit, 1000f, cellLayer))
+            {
+                draggedAsset.GetComponent<SpriteRenderer>().enabled = true;
+                draggedAsset.transform.position = _hit.collider.transform.position + new Vector3(0, 0, -0.2f);
+
+                pointedCell = _hit.transform.gameObject;
+                CheckCanPlace(pointedCell);
+            }
+            else
+            {
+                draggedAsset.GetComponent<SpriteRenderer>().enabled = false;
+            }
         }
 
 
@@ -509,6 +518,11 @@ public class EditorManager : MonoBehaviour
                     break;
             }
         }
+    }
+
+    public void OnAssetDeleted(GameObject asset)
+    {
+        int size = asset.GetComponent<EditorAsset>().(int)size;
     }
 
     public void ChangeSide()

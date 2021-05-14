@@ -41,5 +41,4 @@ public class EditorAsset : MonoBehaviour
     }
 
     public Assets asset;
-
 }
