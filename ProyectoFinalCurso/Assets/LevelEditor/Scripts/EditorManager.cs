@@ -435,7 +435,7 @@ public class EditorManager : MonoBehaviour
             default:
             break;
         }
-        if(draggedAsset.GetComponent<EditorAsset>().twoP && canPlace)
+        if(draggedAsset.GetComponent<EditorAsset>().twoP)
         {
             switch ((int)draggedAsset.GetComponent<EditorAsset>().size) //Checks if the cells that the Asset will occupy are able
             {
