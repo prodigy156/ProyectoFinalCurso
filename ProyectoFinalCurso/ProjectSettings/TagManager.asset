@@ -3,7 +3,12 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Portal
+  - Door
+  - CamRotator
+  - 2P-Box
+  - 2P-Ground
   layers:
   - Default
   - TransparentFX
@@ -13,9 +18,9 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
+  - Ground
+  - Bars
+  - Plane
   - 
   - 
   - 

@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 4181183821374300697}
   m_Layer: 0
   m_Name: 2P-Cube
-  m_TagString: Untagged
+  m_TagString: 2P-Box
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

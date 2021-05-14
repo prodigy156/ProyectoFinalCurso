@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public Transform playerObject, camObject, doorObject;
-
     PlayerController player;
     CamRotator cam;
     Door door;
+
+    GameObject[] objects2P;
 
     public bool aSide = true;
 
@@ -21,9 +21,24 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        player = playerObject.GetComponent<PlayerController>();
-        cam = camObject.GetComponent<CamRotator>();
-        door = doorObject.GetComponent<Door>();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        cam = GameObject.FindGameObjectWithTag("CamRotator").GetComponent<CamRotator>();
+        door = GameObject.FindGameObjectWithTag("Door").GetComponent<Door>();
+
+        GameObject[] box2p = GameObject.FindGameObjectsWithTag("2P-Box");
+        GameObject[] ground2p = GameObject.FindGameObjectsWithTag("2P-Ground");
+        objects2P = new GameObject[box2p.Length + ground2p.Length];
+
+        for (int i = 0; i < box2p.Length; i++)
+        {
+            objects2P[i] = box2p[i];
+        }
+        int j = 0;
+        for (int i = box2p.Length - 1; i < ground2p.Length; i++)
+        {
+            objects2P[i] = ground2p[j];
+            j++;
+        }
     }
 
     // Update is called once per frame
@@ -37,6 +52,11 @@ public class GameManager : MonoBehaviour
             cam.IsSideA(aSide);
             aSide = !aSide;
             player.IsASide(aSide);
+
+            for (int i = 0; i < objects2P.Length; i++)
+            {
+                objects2P[i].SendMessage("TellSide", aSide);
+            }
         }
         else if (wantsToDoAction && mightExit)
         {
