@@ -69,7 +69,6 @@ public class EditorManager : MonoBehaviour
         Keydoor,
         FloorWall1P,
         FloorWall2P,
-        Eraser
     }
     [SerializeField]
     Assets currentAsset;
@@ -101,10 +100,7 @@ public class EditorManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (currentAsset != Assets.Eraser)
-            drawing = true;
-        else
-            drawing = false;
+
         //set unit as the actual asset selected prefab
         switch (currentAsset)
         {
@@ -132,8 +128,7 @@ public class EditorManager : MonoBehaviour
         Ray _ray = cam.ScreenPointToRay(Input.mousePosition);
         Debug.DrawRay(_ray.origin, _ray.direction * 1000f, Color.red);
         RaycastHit _hit;
-        if (drawing)
-        {
+
             if (!instantiated)//if ther's no object to previsualize create one of the currents selected asset
             {
                 draggedAsset = Instantiate(unit, Vector3.zero, Quaternion.identity) as GameObject;
@@ -155,7 +150,6 @@ public class EditorManager : MonoBehaviour
             {
                 draggedAsset.GetComponent<SpriteRenderer>().enabled = false;
             }
-        }
 
 
         if(nextSide != currentSide)
@@ -518,11 +512,6 @@ public class EditorManager : MonoBehaviour
                     break;
             }
         }
-    }
-
-    public void OnAssetDeleted(GameObject asset)
-    {
-        int size = asset.GetComponent<EditorAsset>().(int)size;
     }
 
     public void ChangeSide()
