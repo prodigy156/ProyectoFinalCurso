@@ -32,7 +32,6 @@ public class GameManager : MonoBehaviour
             player.IsASide();
         }
         player.CanPlayerMove(cam.IsStopped());
-
     }
 
     public void OnPortal(bool _onPortal)
