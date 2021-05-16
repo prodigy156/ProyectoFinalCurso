@@ -12,7 +12,12 @@ public class DatabaseManager : MonoBehaviour
 {
 
     public string levelName;
+    public Text checkForDuplicatesTXT;
     string connectionString;
+
+    public int zOffset;
+
+    public List<String> existingTables;
 
     public GameObject sideA;
     public GameObject sideB;
@@ -20,36 +25,37 @@ public class DatabaseManager : MonoBehaviour
     public EditorAsset[] sideAObjects;
     public EditorAsset[] sideBObjects;
 
-    public bool save;
-
     public GameObject[] prefabs;
-
-    EditorAsset editorasset;
 
     void Start()
     {
         connectionString = Application.dataPath + "/Database/FlipBoard.db";
-        //CreateLevelTable();
-        //AddToDataTable(1,2,3,4,5,6);
-        //sideAObjects = sideA.GetComponentsInChildren<EditorAsset>();
         SpawnObjectsFromDatabase();
-        save = false;
+        ListExistingTables();
     }
 
-    
-    void Update()
+    public void SaveLevel()
     {
-        if (save)
+        if (levelName != "" && checkForDuplicatesTXT.text == "OK")
         {
+            CreateLevelTable();
+
             sideAObjects = sideA.GetComponentsInChildren<EditorAsset>();
-            sideBObjects = sideA.GetComponentsInChildren<EditorAsset>();
-            
+            sideBObjects = sideB.GetComponentsInChildren<EditorAsset>();
+
             for (int i = 0; i < sideAObjects.Length; i++)
             {
                 AddToDataTable(sideAObjects[i].gridPosY, sideAObjects[i].gridPosX, Convert.ToInt32(sideAObjects[i].twoP), Convert.ToInt32(sideAObjects[i].sideA), (int)sideAObjects[i].size, (int)sideAObjects[i].asset);
             }
-
-            save = false;
+            for (int i = 0; i < sideBObjects.Length; i++)
+            {
+                AddToDataTable(sideBObjects[i].gridPosY, sideBObjects[i].gridPosX, Convert.ToInt32(sideBObjects[i].twoP), Convert.ToInt32(sideBObjects[i].sideA), (int)sideBObjects[i].size, (int)sideBObjects[i].asset);
+            }
+            Debug.Log("GUARDADO");
+        }
+        else
+        {
+            Debug.Log("NO SE PUEDE GUARDAR");
         }
     }
 
@@ -109,17 +115,34 @@ public class DatabaseManager : MonoBehaviour
             int size = reader.GetInt32(4);
             int prefabID = reader.GetInt32(5);
 
-            GameObject obj = (GameObject)Instantiate(prefabs[0], transform.position, transform.rotation);
+            if (sideA == 1)
+            {
+                GameObject obj = (GameObject)Instantiate(prefabs[prefabID], transform.position, transform.rotation);
 
-            NormalAsset normalAsset = obj.GetComponent<NormalAsset>();
-            normalAsset.posY = posY;
-            normalAsset.posX = posX;
-            normalAsset.twoP = twoP;
-            normalAsset.sideA = sideA;
+                NormalAsset normalAsset = obj.GetComponent<NormalAsset>();
+                normalAsset.posY = posY;
+                normalAsset.posX = posX;
+                normalAsset.posZ = 0;
+                normalAsset.twoP = twoP;
+                normalAsset.sideA = sideA;
 
-            normalAsset.SetValues();
+                normalAsset.SetValues();
+            }
+            if (sideA == 0)
+            {
+                GameObject obj = (GameObject)Instantiate(prefabs[prefabID], transform.position, transform.rotation);
 
-            //= reader.GetInt32(0);
+                NormalAsset normalAsset = obj.GetComponent<NormalAsset>();
+                normalAsset.posY = posY;
+                normalAsset.posX = 21 - posX;
+                normalAsset.posZ = 0 + zOffset;
+                normalAsset.twoP = twoP;
+                normalAsset.sideA = sideA;
+
+                normalAsset.SetValues();
+            }
+
+            
         }
         reader.Close();
         reader = null;
@@ -127,5 +150,57 @@ public class DatabaseManager : MonoBehaviour
         dbcmd = null;
         dbconn.Close();
         dbconn = null;
+    }
+
+    void ListExistingTables()
+    {
+        string conn = "URI=file:" + connectionString; //Path to database.
+        IDbConnection dbconn;
+        dbconn = (IDbConnection)new SqliteConnection(conn);
+        dbconn.Open(); //Open connection to the database.
+        IDbCommand dbcmd = dbconn.CreateCommand();
+        string sqlQuery = "SELECT name FROM sqlite_master WHERE type = 'table';";
+        dbcmd.CommandText = sqlQuery;
+        IDataReader reader = dbcmd.ExecuteReader();
+        while (reader.Read())
+        {
+            string table = reader.GetString(0);
+            if (table != "sqlite_sequence")
+            {
+                existingTables.Add(table);
+            }
+        }
+        reader.Close();
+        reader = null;
+        dbcmd.Dispose();
+        dbcmd = null;
+        dbconn.Close();
+        dbconn = null;
+    }
+
+    bool CheckForDuplicate(string text)
+    {
+        foreach (string item in existingTables)
+        {
+            if (item == text)
+            {
+                checkForDuplicatesTXT.text = "Already exists";
+                return true;
+            }
+        }
+        checkForDuplicatesTXT.text = "OK";
+        return false;
+    }
+
+    public void SetLevelName(string name)
+    {
+        if (!CheckForDuplicate(name))
+        {
+            levelName = name;
+        }
+        else
+        {
+            levelName = "";
+        }
     }
 }
