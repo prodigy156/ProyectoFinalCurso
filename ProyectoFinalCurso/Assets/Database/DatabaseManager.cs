@@ -23,6 +23,7 @@ public class DatabaseManager : MonoBehaviour
     public bool save;
 
     public GameObject[] prefabs;
+    public Text levelNameText;
 
     EditorAsset editorasset;
 
@@ -31,8 +32,8 @@ public class DatabaseManager : MonoBehaviour
         connectionString = Application.dataPath + "/Database/FlipBoard.db";
         //CreateLevelTable();
         //AddToDataTable(1,2,3,4,5,6);
-        //sideAObjects = sideA.GetComponentsInChildren<EditorAsset>();
-        SpawnObjectsFromDatabase();
+        sideAObjects = sideA.GetComponentsInChildren<EditorAsset>();
+        //SpawnObjectsFromDatabase();
         save = false;
     }
 
@@ -43,7 +44,7 @@ public class DatabaseManager : MonoBehaviour
         {
             sideAObjects = sideA.GetComponentsInChildren<EditorAsset>();
             sideBObjects = sideA.GetComponentsInChildren<EditorAsset>();
-            
+            CreateLevelTable();
             for (int i = 0; i < sideAObjects.Length; i++)
             {
                 AddToDataTable(sideAObjects[i].gridPosY, sideAObjects[i].gridPosX, Convert.ToInt32(sideAObjects[i].twoP), Convert.ToInt32(sideAObjects[i].sideA), (int)sideAObjects[i].size, (int)sideAObjects[i].asset);
@@ -51,6 +52,17 @@ public class DatabaseManager : MonoBehaviour
 
             save = false;
         }
+    }
+
+    public void Save()
+    {
+        levelName = levelNameText.text;
+        save = true;
+    }
+
+    public void Load()
+    {
+        SpawnObjectsFromDatabase();
     }
 
     void AddToDataTable(int posY, int posX, int twoP, int sideA, int size, int prefabId)
