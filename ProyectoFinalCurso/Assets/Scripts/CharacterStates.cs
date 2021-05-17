@@ -38,9 +38,13 @@ public class CharacterStates : MonoBehaviour
     private void Awake()
     {
         idle = Instantiate(idlePrefab, transform);
+        idle.transform.rotation = Quaternion.Euler(0, 90, 0);
         runningRight = Instantiate(runningRightPrefab, transform);
+        runningRight.transform.rotation = Quaternion.Euler(0, 90, 0);
         runningLeft = Instantiate(runningLeftPrefab, transform);
+        runningLeft.transform.rotation = Quaternion.Euler(0, 90, 0);
         jumpingRight = Instantiate(jumpingRightPrefab, transform);
+
         jumpingLeft = Instantiate(jumpingLeftPrefab, transform);
 
         idle.SetActive(false);
@@ -72,6 +76,7 @@ public class CharacterStates : MonoBehaviour
     {
         if (wantsToChange)
         {
+            Vector3 objectRotation = new Vector3(0, 0, 0); ;
             GameObject nextObjectState;
             switch (nextState)
             {
@@ -83,6 +88,7 @@ public class CharacterStates : MonoBehaviour
                     else //if (nextDirection == Direction.LEFT)
                     {
                         nextObjectState = runningLeft;
+                        objectRotation = new Vector3(0, 180, 0);
                     }
                     break;
                 case State.JUMPING:
@@ -93,6 +99,7 @@ public class CharacterStates : MonoBehaviour
                     else //if (nextDirection == Direction.LEFT)
                     {
                         nextObjectState = jumpingLeft;
+                        //objectRotation = new Vector3(0, 180, 0);
                     }
                     break;
                 case State.IDLE:
@@ -111,15 +118,22 @@ public class CharacterStates : MonoBehaviour
             rotating = true;
             if (controlWhatSideHasToChange)
             {
-                nextObjectState.transform.position = transform.localToWorldMatrix.MultiplyPoint(bPosition);
-                nextObjectState.transform.rotation = bRotation;
+                Matrix4x4 translateMatrix = Matrix4x4.Translate(bPosition);
+                Matrix4x4 transformMatrix = transform.localToWorldMatrix * translateMatrix;
+
+                nextObjectState.transform.position = transformMatrix.MultiplyPoint(new Vector3(0, 0, 0));
+
+                nextObjectState.transform.rotation = Quaternion.Euler(objectRotation.x, objectRotation.y, objectRotation.z);
                 rotatingToB = true;
                 controlWhatSideHasToChange = false;
             }
             else
             {
-                nextObjectState.transform.position = transform.localToWorldMatrix.MultiplyPoint(aPosition);
-                nextObjectState.transform.rotation = aRotation;
+                Matrix4x4 translateMatrix = Matrix4x4.Translate(aPosition);
+                Matrix4x4 transformMatrix = transform.localToWorldMatrix * translateMatrix;
+
+                nextObjectState.transform.position = transformMatrix.MultiplyPoint(new Vector3(0, 0, 0));
+                nextObjectState.transform.rotation = Quaternion.Euler(0, 0, 0);
                 rotatingToA = true;
                 controlWhatSideHasToChange = true;
             }

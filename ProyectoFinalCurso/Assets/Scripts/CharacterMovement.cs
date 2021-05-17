@@ -73,7 +73,7 @@ public class CharacterMovement : MonoBehaviour
         }
         else
         {
-            if (groundCheck)
+            if (isGrounded)
                 nextState = State.STOPPED;
         }
         
@@ -97,6 +97,18 @@ public class CharacterMovement : MonoBehaviour
             }
         }
 
+        if (!isGrounded)
+        {
+            if (horizontal > 0f)
+            {
+                nextState = State.JUMPIN_RIGHT;
+            }
+            else
+            {
+                nextState = State.JUMPING_LEFT;
+            }
+        }
+
         //gravity
         {
             isGrounded = Physics.CheckBox(groundCheck.position, new Vector3(0.65f, groundDistance, 0.1f),  new Quaternion(0,0,0,0), groundMask);
@@ -107,7 +119,8 @@ public class CharacterMovement : MonoBehaviour
                 if(jumping)
                 {
                     jumping = false;
-                    
+
+                    nextState = State.STOPPED;
 
                     lookingRight = !lookingRight;
                 }
@@ -155,7 +168,7 @@ public class CharacterMovement : MonoBehaviour
                     characterStates.ChangeState(CharacterStates.State.JUMPING, CharacterStates.Direction.RIGHT);
                     break;
                 case State.JUMPING_LEFT:
-                    characterStates.ChangeState(CharacterStates.State.RUNNING, CharacterStates.Direction.LEFT);
+                    characterStates.ChangeState(CharacterStates.State.JUMPING, CharacterStates.Direction.LEFT);
                     break;
             }
             state = nextState;
