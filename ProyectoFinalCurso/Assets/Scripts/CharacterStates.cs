@@ -28,7 +28,7 @@ public class CharacterStates : MonoBehaviour
     }
     State state, nextState;
 
-    Matrix4x4 matrixA, matrixB;
+    bool isASide = true;
 
     bool wantsToChange = false;
     bool controlWhatSideHasToChange;
@@ -76,7 +76,11 @@ public class CharacterStates : MonoBehaviour
     {
         if (wantsToChange)
         {
-            Vector3 objectRotation = new Vector3(0, 0, 0); ;
+            Vector3 objectRotation;
+            if (isASide)
+                objectRotation = new Vector3(0, 0, 0);
+            else
+                objectRotation = new Vector3(0, 180, 0);
             GameObject nextObjectState;
             switch (nextState)
             {
@@ -88,7 +92,6 @@ public class CharacterStates : MonoBehaviour
                     else //if (nextDirection == Direction.LEFT)
                     {
                         nextObjectState = runningLeft;
-                        objectRotation = new Vector3(0, 180, 0);
                     }
                     break;
                 case State.JUMPING:
@@ -99,7 +102,6 @@ public class CharacterStates : MonoBehaviour
                     else //if (nextDirection == Direction.LEFT)
                     {
                         nextObjectState = jumpingLeft;
-                        //objectRotation = new Vector3(0, 180, 0);
                     }
                     break;
                 case State.IDLE:
@@ -109,13 +111,13 @@ public class CharacterStates : MonoBehaviour
                     nextObjectState = idle;
                     break;
             }
-
+            state = nextState;
+            currentDirection = nextDirection;
             beforeState.SetActive(false);
             beforeState = currentState;
             currentState = nextObjectState;
             nextObjectState.SetActive(true);
 
-            rotating = true;
             if (controlWhatSideHasToChange)
             {
                 Matrix4x4 translateMatrix = Matrix4x4.Translate(bPosition);
@@ -125,7 +127,6 @@ public class CharacterStates : MonoBehaviour
 
                 nextObjectState.transform.rotation = Quaternion.Euler(objectRotation.x, objectRotation.y, objectRotation.z);
                 rotatingToB = true;
-                controlWhatSideHasToChange = false;
             }
             else
             {
@@ -133,33 +134,80 @@ public class CharacterStates : MonoBehaviour
                 Matrix4x4 transformMatrix = transform.localToWorldMatrix * translateMatrix;
 
                 nextObjectState.transform.position = transformMatrix.MultiplyPoint(new Vector3(0, 0, 0));
+
+                float controlSign = nextObjectState.transform.lossyScale.x > 0 ? 1 : -1;
                 nextObjectState.transform.rotation = Quaternion.Euler(0, 0, 0);
                 rotatingToA = true;
-                controlWhatSideHasToChange = true;
             }
+            controlWhatSideHasToChange = !controlWhatSideHasToChange;
             wantsToChange = false;
+
+            rotating = true;
+        }
+        else
+        {
+            //Bug corrector
+            if (!rotating)
+            {
+                if (isASide)
+                {
+                    currentState.transform.rotation = Quaternion.Euler(0, 180, 0);
+                    beforeState.transform.rotation = Quaternion.Euler(0, 0, 0);
+                }
+                else
+                {
+                    currentState.transform.rotation = Quaternion.Euler(0, 0, 0);
+                    beforeState.transform.rotation = Quaternion.Euler(0, 180, 0);
+                }
+            }
         }
 
         if (rotating)
         {
-            if (rotatingToA)
+            if (isASide)
             {
-                yRotation += turnSpeed * Time.deltaTime;
-
-                if (yRotation > 90)
+                if (rotatingToA)
                 {
-                    yRotation = 90;
-                    rotating = rotatingToA = false;
+                    yRotation += turnSpeed * Time.deltaTime;
+
+                    if (yRotation > 90)
+                    {
+                        yRotation = 90;
+                        rotating = rotatingToA = false;
+                    }
+                }
+                else if (rotatingToB)
+                {
+                    yRotation -= turnSpeed * Time.deltaTime;
+
+                    if (yRotation < -90f)
+                    {
+                        yRotation = -90f;
+                        rotating = rotatingToB = false;
+                    }
                 }
             }
-            else if (rotatingToB)
+            else
             {
-                yRotation -= turnSpeed * Time.deltaTime;
-
-                if (yRotation < -90f)
+                if (rotatingToA)
                 {
-                    yRotation = -90f;
-                    rotating = rotatingToB = false;
+                    yRotation += turnSpeed * Time.deltaTime;
+
+                    if (yRotation > 90 + 180)
+                    {
+                        yRotation = 90 + 180;
+                        rotating = rotatingToA = false;
+                    }
+                }
+                else if (rotatingToB)
+                {
+                    yRotation -= turnSpeed * Time.deltaTime;
+
+                    if (yRotation < -90f + 180)
+                    {
+                        yRotation = -90f + 180;
+                        rotating = rotatingToB = false;
+                    }
                 }
             }
 
@@ -178,8 +226,8 @@ public class CharacterStates : MonoBehaviour
         wantsToChange = true;
     }
 
-    public void ChangeSide()
+    public void ChangeSide(bool _isASide)
     {
-
+        isASide = _isASide;
     }
 }

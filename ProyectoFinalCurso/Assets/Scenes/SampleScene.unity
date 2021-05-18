@@ -1269,11 +1269,11 @@ MonoBehaviour:
     type: 3}
   runningLeftPrefab: {fileID: 8962471489170715212, guid: eea00f9cee1842344b23b56210437a8f,
     type: 3}
-  jumpingRightPrefab: {fileID: 6833544900162219026, guid: 1025fa50c3df9964a802ec8aeb88c969,
+  jumpingRightPrefab: {fileID: 6833544900162219026, guid: 8cfc705bfa7b81c408a18f493c064011,
     type: 3}
   jumpingLeftPrefab: {fileID: 6833544900162219026, guid: 1025fa50c3df9964a802ec8aeb88c969,
     type: 3}
-  distanceFromThePoint: 0.3
+  distanceFromThePoint: 0.1
   turnSpeed: 1000
 --- !u!4 &1691428580 stripped
 Transform:

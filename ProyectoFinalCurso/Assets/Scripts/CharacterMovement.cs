@@ -33,7 +33,7 @@ public class CharacterMovement : MonoBehaviour
 
     enum State
     {
-        STOPPED, WALKING_RIGHT, WALKING_LEFT, JUMPIN_RIGHT, JUMPING_LEFT
+        STOPPED, WALKING_RIGHT, WALKING_LEFT, JUMPING_RIGHT, JUMPING_LEFT
     }
     State state, nextState;
 
@@ -50,6 +50,29 @@ public class CharacterMovement : MonoBehaviour
 
     private void Update()
     {
+        if (state != nextState)
+        {
+            switch (nextState)
+            {
+                case State.STOPPED:
+                    characterStates.ChangeState(CharacterStates.State.IDLE, CharacterStates.Direction.RIGHT);
+                    break;
+                case State.WALKING_RIGHT:
+                    characterStates.ChangeState(CharacterStates.State.RUNNING, CharacterStates.Direction.RIGHT);
+                    break;
+                case State.WALKING_LEFT:
+                    characterStates.ChangeState(CharacterStates.State.RUNNING, CharacterStates.Direction.LEFT);
+                    break;
+                case State.JUMPING_RIGHT:
+                    characterStates.ChangeState(CharacterStates.State.JUMPING, CharacterStates.Direction.RIGHT);
+                    break;
+                case State.JUMPING_LEFT:
+                    characterStates.ChangeState(CharacterStates.State.JUMPING, CharacterStates.Direction.LEFT);
+                    break;
+            }
+            state = nextState;
+        }
+
         float horizontal = Input.GetAxisRaw("Horizontal");
         Vector3 direction = new Vector3(horizontal, 0f, 0f).normalized;
         if(!isASide)
@@ -86,7 +109,7 @@ public class CharacterMovement : MonoBehaviour
 
                 if (horizontal > 0f)
                 {
-                    nextState = State.JUMPIN_RIGHT;
+                    nextState = State.JUMPING_RIGHT;
                 }
                 else
                 {
@@ -101,7 +124,7 @@ public class CharacterMovement : MonoBehaviour
         {
             if (horizontal > 0f)
             {
-                nextState = State.JUMPIN_RIGHT;
+                nextState = State.JUMPING_RIGHT;
             }
             else
             {
@@ -149,30 +172,6 @@ public class CharacterMovement : MonoBehaviour
 
             box.rotation = Quaternion.Euler(new Vector3(0f, yRotation, 0f));
         */}
-
-
-        if (state != nextState)
-        {
-            switch (nextState)
-            {
-                case State.STOPPED:
-                    characterStates.ChangeState(CharacterStates.State.IDLE, CharacterStates.Direction.RIGHT);
-                    break;
-                case State.WALKING_RIGHT:
-                    characterStates.ChangeState(CharacterStates.State.RUNNING, CharacterStates.Direction.RIGHT);
-                    break;
-                case State.WALKING_LEFT:
-                    characterStates.ChangeState(CharacterStates.State.RUNNING, CharacterStates.Direction.LEFT);
-                    break;
-                case State.JUMPIN_RIGHT:
-                    characterStates.ChangeState(CharacterStates.State.JUMPING, CharacterStates.Direction.RIGHT);
-                    break;
-                case State.JUMPING_LEFT:
-                    characterStates.ChangeState(CharacterStates.State.JUMPING, CharacterStates.Direction.LEFT);
-                    break;
-            }
-            state = nextState;
-        }
     }
 
     //checks if character is on A side or B side on the map
@@ -187,13 +186,17 @@ public class CharacterMovement : MonoBehaviour
             Debug.Log("A");
             //transform.position = new Vector3(transform.position.x, transform.position.y, -0.35f);
             controller.Move(new Vector3(0, 0, transform.position.z - 1.1f));
+            //transform.eulerAngles = new Vector3(0, 0, 0);
         }
         else if(!isASide)
         {
             Debug.Log("B");
             //transform.position = new Vector3(transform.position.x, transform.position.y, 0.45f);
             controller.Move(new Vector3(0, 0, transform.position.z + 1.1f));
+            //transform.eulerAngles = new Vector3(0, 180, 0);
         }
+
+        characterStates.ChangeSide(isASide);
     }
 
     public void CanPlayerMove(bool _canMove)
