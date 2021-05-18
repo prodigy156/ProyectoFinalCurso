@@ -11,7 +11,11 @@ public class CamRotator : MonoBehaviour
 
     bool isASide = true;
 
-    enum States { ROTATING, STOP }
+    enum States 
+    { 
+        ROTATING,
+        STOP 
+    }
     States state, nextState;
 
     float timer = 0;
@@ -56,13 +60,11 @@ public class CamRotator : MonoBehaviour
             case States.STOP:
                 break;
             case States.ROTATING:
-
                 timer += Time.deltaTime;
 
                 if (timer > rotationTime) { timer = rotationTime; }
 
                 float interpolationFactor = timer / rotationTime;
-
                 transform.rotation = Quaternion.Slerp(rot.rotation, nextRot.rotation, interpolationFactor);
 
                 if (timer >= rotationTime)
@@ -70,7 +72,6 @@ public class CamRotator : MonoBehaviour
                     transform.rotation = nextRot.rotation;
                     nextState = States.STOP;
                 }
-
                 break;
             default:
                 break;

@@ -11,11 +11,13 @@ public class MenuManager : MonoBehaviour
     {
         Play,
         Options,
-        Menu
+        Menu,
+        Editor,
+        LoadEditor
     }
     State nextState;
     State state;
-    
+
     [Header("Options")]
     public AudioMixer audioMixer;
 
@@ -31,23 +33,33 @@ public class MenuManager : MonoBehaviour
     float timer;
     float time = 5.5f;
 
+    public static MenuManager instance;
+
+
+    private void Awake()
+    {
+        instance = this;
+    }
+
     void Start()
     {
         Time.timeScale = 1f;
         timer = time;
+
         resolutions = Screen.resolutions;
         resolutionDropdown.ClearOptions();
-
+                                                                                                                
         List<string> options = new List<string>();
 
 
         int currentResolutionIndex = 0;
-        for(int i = 0; i < resolutions.Length; i++)
+        for (int i = 0; i < resolutions.Length; i++)
         {
+
             string option = resolutions[i].width + " x " + resolutions[i].height;
             options.Add(option);
 
-            if(resolutions[i].width == Screen.currentResolution.width && 
+            if (resolutions[i].width == Screen.currentResolution.width &&
                 resolutions[i].height == Screen.currentResolution.height)
             {
                 currentResolutionIndex = i;
@@ -61,10 +73,12 @@ public class MenuManager : MonoBehaviour
         nextState = State.Menu;
     }
 
+
+    
     // Update is called once per frame
     void Update()
     {
-        if(state == State.Options)
+        if (state == State.Options)
         {
             timer -= Time.deltaTime;
             if (timer < 0)
@@ -81,7 +95,22 @@ public class MenuManager : MonoBehaviour
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
             }
         }
-
+        if (state == State.Editor)
+        {
+            timer -= Time.deltaTime;
+            if (timer < 0)
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
+            }
+        }
+        if (state == State.LoadEditor)
+        {
+            timer -= Time.deltaTime;
+            if (timer < 0)
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 3);
+            }
+        }
 
         if (state == State.Menu)
         {
@@ -94,13 +123,13 @@ public class MenuManager : MonoBehaviour
 
         if (nextState != state)
         {
-            if(nextState == State.Play)
+            if (nextState == State.Play)
             {
                 timer = time;
                 animator.SetBool("BoxOpen", true);
                 animatorPlayer.gameObject.SetActive(false);
             }
-            if(nextState == State.Options)
+            if (nextState == State.Options)
             {
                 timer = time;
                 animator.SetBool("BoxOpen", true);
@@ -108,53 +137,75 @@ public class MenuManager : MonoBehaviour
             }
             if (nextState == State.Menu)
             {
+                animator.SetBool("BoxOpen", false);
                 canvasOption.SetActive(false);
                 timer = time;
             }
-            state = nextState;
+            if (nextState == State.Editor)
+            {
+                timer = time;
+                animator.SetBool("BoxOpen", true);
+                animatorPlayer.gameObject.SetActive(false);
+            }
+            if (nextState == State.LoadEditor)
+            {
+                timer = time;
+                animator.SetBool("BoxOpen", true);
+                animatorPlayer.gameObject.SetActive(false);
+            }
+             state = nextState;
         }
 
 
     }
-    public void SetResolution(int resolutionIndex)
-    {
-        Resolution resolution = resolutions[resolutionIndex];
-        Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
-    }
+        public void SetResolution(int resolutionIndex)
+        {
 
-    public void setVolume (float _volume)
-    {
-        audioMixer.SetFloat("Volume", _volume);
-    }
+            Resolution resolution = resolutions[resolutionIndex];
+            Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
+        }
 
-    public void SetQuality(int qualityIndex)
-    {
-        QualitySettings.SetQualityLevel(qualityIndex);
-    }
+        public void setVolume(float _volume)
+        {
+            audioMixer.SetFloat("Volume", _volume);
+        }
 
-    public void SetFullScreen (bool isFullscreen)
+        public void SetQuality(int qualityIndex)
+        {
+            QualitySettings.SetQualityLevel(qualityIndex);
+        }
+
+    public void SetFullScreen(bool isFullscreen)
     {
         Screen.fullScreen = isFullscreen;
     }
 
     public void CloseCanvas()
-    {
-        animator.SetBool("BoxOpen", false);
-        nextState = State.Menu;
+        {
+            nextState = State.Menu;
+        }
+
+        public void PlayGame()
+        {
+            nextState = State.Play;
+        }
+
+        public void OptionGame()
+        {
+            nextState = State.Options;
+        }
+
+        public void QuitGame()
+        {
+            Application.Quit();
+        }
+        public void EditorLevel()
+        {
+            nextState = State.Editor;
+        }
+        public void LoadEditor()
+        {
+            nextState = State.LoadEditor;
+        }
     }
 
-    public void PlayGame()
-    {
-        nextState = State.Play;
-    }
-
-    public void OptionGame()
-    {
-        nextState = State.Options;
-    }
-
-    public void QuitGame()
-    {
-        Application.Quit();
-    }
-}

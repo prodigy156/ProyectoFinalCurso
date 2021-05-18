@@ -6,8 +6,6 @@ public class ScriptOptions : MonoBehaviour
 {
     public MenuManager menuManager;
 
-    new Transform transform;
-
 
     void OnMouseOver()
     {
