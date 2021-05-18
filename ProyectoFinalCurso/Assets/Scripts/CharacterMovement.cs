@@ -156,17 +156,18 @@ public class CharacterMovement : MonoBehaviour
     }
 
     //checks if character is on A side or B side on the map
-    public void IsASide(float distance)
+    public void SetPos(float distance)
     {
         isASide = !isASide;
+        transform.position = new Vector3(transform.position.x, transform.position.y, distance);
 
-       /// Debug.Log("girado" + isASide);
-
-        if(isASide)
+        // Debug.Log("girado" + isASide);
+        /*
+        if (isASide)
         {
             Debug.Log("A");
-            //transform.position = new Vector3(transform.position.x, transform.position.y, -0.35f);
-            controller.Move(new Vector3(0, 0, -distance));
+            transform.position = new Vector3(transform.position.x, transform.position.y, distance);
+            //controller.Move(new Vector3(0, 0, -distance));
             //transform.eulerAngles = new Vector3(0, 0, 0);
         }
         else if(!isASide)
@@ -176,6 +177,7 @@ public class CharacterMovement : MonoBehaviour
             controller.Move(new Vector3(0, 0, distance));
             //transform.eulerAngles = new Vector3(0, 180, 0);
         }
+        */
 
         characterStates.ChangeSide(isASide);
     }

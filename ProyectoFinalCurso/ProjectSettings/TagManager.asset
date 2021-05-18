@@ -5,6 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - Portal
+  - 2P-Box
+  - Door
+  - CamRotator
+  - 2P-Ground
+  - GameManager
   layers:
   - Default
   - TransparentFX
