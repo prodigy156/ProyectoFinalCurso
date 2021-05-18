@@ -1,41 +1,51 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public Transform playerObject, camObject;
 
-    CharacterMovement player;
+    PlayerController player;
     CamRotator cam;
 
     public bool aSide = true;
 
     bool onPortal = false;
 
+    // Start is called before the first frame update
     void Start()
     {
-        player = playerObject.gameObject.GetComponent<CharacterMovement>();
+        player = playerObject.gameObject.GetComponent<PlayerController>();
         cam = camObject.gameObject.GetComponent<CamRotator>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        bool wantToRotate = Input.GetKey(KeyCode.F);
+        bool wantToRotate = Input.GetKey(KeyCode.UpArrow);
+
+        if (onPortal)
+        {
+            int i = 0;
+        }
 
         if (wantToRotate && cam.IsStopped() && onPortal)
         {
             cam.RotateCam();
             cam.IsSideA(aSide);
             aSide = !aSide;
-            player.IsASide();
+            player.IsASide(aSide);
         }
-        player.CanPlayerMove(cam.IsStopped());
+
+        player.PlayerCanMove(cam.IsStopped());
+
     }
 
     public void OnPortal(bool _onPortal)
     {
         onPortal = _onPortal;
     }
+
 }

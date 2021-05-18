@@ -89,8 +89,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6247784134242636200}
   - component: {fileID: 6247784134242636203}
+  - component: {fileID: 6247784134242636202}
   - component: {fileID: 6247784134242636201}
-  - component: {fileID: 8288602092638057510}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -126,6 +126,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.37, y: 1.6, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6247784134242636202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6247784134242636205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b5dfc363c8f1f04889a71744e4ab031, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerSpeed: 0
+  rotationSpeed: 0
+  jumpForce: 0
+  box: {fileID: 6247784132602643693}
 --- !u!54 &6247784134242636201
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -142,25 +158,3 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 90
   m_CollisionDetection: 0
---- !u!114 &8288602092638057510
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6247784134242636205}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6b771f84ba2baa479c46ace6ab3ec16, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  box: {fileID: 6247784132602643686}
-  speed: 6
-  turnSpeed: 1000
-  gravity: -9.81
-  groundCheck: {fileID: 0}
-  groundDistance: 0.1
-  groundMask:
-    serializedVersion: 2
-    m_Bits: 0
-  jumpHeight: 3
