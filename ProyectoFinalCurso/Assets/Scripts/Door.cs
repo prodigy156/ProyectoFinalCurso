@@ -4,34 +4,29 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
-    public Transform gameManagerObject;
     GameManager gameManager;
 
-    GameObject keyLock;
-    Rigidbody rbLock;
-    BoxCollider bcLock;
+    public Rigidbody rbLock;
 
     bool hasKey = false;
     bool gotKey = false;
 
     private void Awake()
     {
-        gameManager = gameManagerObject.GetComponent<GameManager>();
-        rbLock = GetComponentInChildren<Rigidbody>();
-        bcLock = GetComponentInChildren<BoxCollider>();
-        //keyLock = GetComponentInChildren<GameObject>();
+        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        rbLock.useGravity = false;
-        rbLock.detectCollisions = false;
+
     }
 
     public void HasKey()
     {
         hasKey = true;
+
+        rbLock.gameObject.SetActive(true);
 
         rbLock.useGravity = false;
         rbLock.detectCollisions = false;
@@ -53,15 +48,22 @@ public class Door : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!hasKey || hasKey && !gotKey)
+        if (other.gameObject.tag == "Player")
         {
-            gameManager.PlayerMightExit(true);
+            if (!hasKey || hasKey && !gotKey)
+            {
+                gameManager.PlayerMightExit(true);
+            }
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        gameManager.PlayerMightExit(false);
+        if (other.gameObject.tag == "Player")
+        {
+            gameManager.PlayerMightExit(false);
+        }
+        
     }
 
     private void DestroyLock()

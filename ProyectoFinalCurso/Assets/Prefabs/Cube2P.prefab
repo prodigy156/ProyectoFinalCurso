@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6041344967908831222}
   - component: {fileID: 4672248828206385204}
   - component: {fileID: 1327309554152866269}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Cube2P
   m_TagString: 2P-Box
   m_Icon: {fileID: 0}

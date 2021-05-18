@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Key : MonoBehaviour
 {
-    public Transform gameManagerObject;
     GameManager gameManager;
 
     public float angularSpeed;
@@ -15,7 +14,7 @@ public class Key : MonoBehaviour
 
     private void Awake()
     {
-        gameManager = gameManagerObject.GetComponent<GameManager>();
+        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
     }
 
     private void Start()

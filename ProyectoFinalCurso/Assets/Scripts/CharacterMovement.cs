@@ -159,25 +159,7 @@ public class CharacterMovement : MonoBehaviour
     public void SetPos(float distance)
     {
         isASide = !isASide;
-        transform.position = new Vector3(transform.position.x, transform.position.y, distance);
-
-        // Debug.Log("girado" + isASide);
-        /*
-        if (isASide)
-        {
-            Debug.Log("A");
-            transform.position = new Vector3(transform.position.x, transform.position.y, distance);
-            //controller.Move(new Vector3(0, 0, -distance));
-            //transform.eulerAngles = new Vector3(0, 0, 0);
-        }
-        else if(!isASide)
-        {
-            Debug.Log("B");
-            //transform.position = new Vector3(transform.position.x, transform.position.y, 0.45f);
-            controller.Move(new Vector3(0, 0, distance));
-            //transform.eulerAngles = new Vector3(0, 180, 0);
-        }
-        */
+        controller.Move(new Vector3(0, 0, distance * 2));
 
         characterStates.ChangeSide(isASide);
     }

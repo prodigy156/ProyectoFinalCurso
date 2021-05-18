@@ -5,6 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - Portal
+  - 2P-Box
+  - Door
+  - CamRotator
+  - 2P-Ground
+  - SpawnPoint
+  - GameManager
   layers:
   - Default
   - TransparentFX
@@ -15,7 +21,7 @@ TagManager:
   - 
   - 
   - Cube
-  - 
+  - Ground
   - 
   - 
   - 

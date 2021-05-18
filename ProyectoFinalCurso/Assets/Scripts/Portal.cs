@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class Portal : MonoBehaviour
 {
-    public Transform gameManagerObject;
     GameManager gameManager;
 
     private void Start()
     {
-        gameManager = gameManagerObject.gameObject.GetComponent<GameManager>();
+        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
     }
 
     void OnTriggerEnter(Collider other)

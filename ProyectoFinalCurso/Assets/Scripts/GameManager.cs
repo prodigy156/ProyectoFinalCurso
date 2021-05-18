@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterMovement>();
         cam = GameObject.FindGameObjectWithTag("CamRotator").GetComponent<CamRotator>();
         door = GameObject.FindGameObjectWithTag("Door").GetComponent<Door>();
-        
+
         GameObject[] box2p = GameObject.FindGameObjectsWithTag("2P-Box");
         GameObject[] ground2p = GameObject.FindGameObjectsWithTag("2P-Ground");
         objects2P = new GameObject[box2p.Length + ground2p.Length];
@@ -43,6 +43,11 @@ public class GameManager : MonoBehaviour
                 j++;
             }
         }
+    }
+
+    private void Start()
+    {
+        
     }
 
     // Update is called once per frame

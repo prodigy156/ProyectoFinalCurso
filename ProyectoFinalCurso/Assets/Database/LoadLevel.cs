@@ -11,6 +11,13 @@ using System;
 public class LoadLevel : MonoBehaviour
 {
 
+    GameObject player;
+    Vector3 spawnpoint;
+
+
+    public GameObject gameManagerObject;
+    public GameManager gameManager;
+
     public Dropdown dropdown;
 
     public string levelName;
@@ -20,6 +27,8 @@ public class LoadLevel : MonoBehaviour
 
     public List<string> existingTables;
 
+    public GameObject[] gameobjectsToHide;
+
     public GameObject[] objectsToHide;
 
     public GameObject[] prefabs;
@@ -27,6 +36,12 @@ public class LoadLevel : MonoBehaviour
     void Start()
     {
         connectionString = Application.dataPath + "/Database/FlipBoard.db";
+        for (int i = 0; i < objectsToHide.Length; i++)
+        {
+           gameobjectsToHide[i].SetActive(false);
+        }
+
+        gameManagerObject.SetActive(false);
         ListExistingTables();
     }
 
@@ -55,6 +70,11 @@ public class LoadLevel : MonoBehaviour
             int size = reader.GetInt32(4);
             int prefabID = reader.GetInt32(5);
 
+            if (prefabID == 0)
+            {
+                spawnpoint = new Vector3(posX,posY * -1,-0.5f);
+            }
+
             if (sideA == 1)
             {
                 if (twoP != 1)
@@ -69,6 +89,8 @@ public class LoadLevel : MonoBehaviour
                     normalAsset.sideA = sideA;
 
                     normalAsset.SetValues();
+
+                    SetGameManager(prefabID, obj);
                 }
                 else
                 {
@@ -82,6 +104,8 @@ public class LoadLevel : MonoBehaviour
                     normalAsset.sideA = sideA;
 
                     normalAsset.SetValues();
+
+                    SetGameManager(prefabID, obj);
                 }
                 
             }
@@ -99,6 +123,8 @@ public class LoadLevel : MonoBehaviour
                     normalAsset.sideA = sideA;
 
                     normalAsset.SetValues();
+
+                    SetGameManager(prefabID, obj);
                 }
                 else
                 {
@@ -112,6 +138,8 @@ public class LoadLevel : MonoBehaviour
                     normalAsset.sideA = sideA;
 
                     normalAsset.SetValues();
+
+                    SetGameManager(prefabID, obj);
                 }
                 
             }
@@ -124,6 +152,10 @@ public class LoadLevel : MonoBehaviour
         dbcmd = null;
         dbconn.Close();
         dbconn = null;
+
+        gameManagerObject.SetActive(true);
+
+        StartCoroutine(StartProcedure());
     }
 
     void ListExistingTables()
@@ -160,6 +192,25 @@ public class LoadLevel : MonoBehaviour
     public void SetLevelName(int i)
     {
         levelName = existingTables[i];
+    }
+
+    void SetGameManager(int prefabID, GameObject obj)
+    {
+
+    }
+
+    IEnumerator StartProcedure()
+    {
+        for (int i = 0; i < objectsToHide.Length; i++)
+        {
+            gameobjectsToHide[i].SetActive(true);
+        }
+        player = gameobjectsToHide[0];
+        Debug.Log(spawnpoint);
+        player.transform.position = spawnpoint;
+
+
+        yield return null;
     }
 }
 
