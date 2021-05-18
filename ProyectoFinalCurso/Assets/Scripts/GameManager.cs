@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
 
     public bool aSide = true;
 
+    public float distance = 0.5f;
+
     bool onPortal = false;
 
     void Start()
@@ -29,7 +31,7 @@ public class GameManager : MonoBehaviour
             cam.RotateCam();
             cam.IsSideA(aSide);
             aSide = !aSide;
-            player.IsASide();
+            player.IsASide(distance);
         }
         player.CanPlayerMove(cam.IsStopped());
     }

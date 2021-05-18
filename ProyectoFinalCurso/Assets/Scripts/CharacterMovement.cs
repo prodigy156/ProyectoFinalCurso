@@ -16,7 +16,6 @@ public class CharacterMovement : MonoBehaviour
 
     //character private atributes
     private bool lookingRight = true;
-    private float yRotation = 90;
 
     //Gravity - GroundCheck
         //Public
@@ -139,7 +138,7 @@ public class CharacterMovement : MonoBehaviour
             if (isGrounded && velocity.y < 0)
             {
                 velocity.y = -0f;
-                if(jumping)
+                if (jumping)
                 {
                     jumping = false;
 
@@ -148,34 +147,16 @@ public class CharacterMovement : MonoBehaviour
                     lookingRight = !lookingRight;
                 }
             }
+            else
+                isGrounded = false;
 
             velocity.y += gravity * Time.deltaTime;
             controller.Move(velocity * Time.deltaTime);
         }
-
-        //change sight direction (rotation)
-        {/*
-            if ((lookingRight && yRotation < 90))
-            {
-                yRotation += turnSpeed * Time.deltaTime;
-            
-                if (yRotation > 90)
-                    yRotation = 90;
-            }
-            else if ((!lookingRight && yRotation > -90f))
-            {
-                yRotation -= turnSpeed * Time.deltaTime;
-            
-                if (yRotation < -90f)
-                    yRotation = -90f;
-            }
-
-            box.rotation = Quaternion.Euler(new Vector3(0f, yRotation, 0f));
-        */}
     }
 
     //checks if character is on A side or B side on the map
-    public void IsASide()
+    public void IsASide(float distance)
     {
         isASide = !isASide;
 
@@ -185,14 +166,14 @@ public class CharacterMovement : MonoBehaviour
         {
             Debug.Log("A");
             //transform.position = new Vector3(transform.position.x, transform.position.y, -0.35f);
-            controller.Move(new Vector3(0, 0, transform.position.z - 1.1f));
+            controller.Move(new Vector3(0, 0, -distance));
             //transform.eulerAngles = new Vector3(0, 0, 0);
         }
         else if(!isASide)
         {
             Debug.Log("B");
             //transform.position = new Vector3(transform.position.x, transform.position.y, 0.45f);
-            controller.Move(new Vector3(0, 0, transform.position.z + 1.1f));
+            controller.Move(new Vector3(0, 0, distance));
             //transform.eulerAngles = new Vector3(0, 180, 0);
         }
 

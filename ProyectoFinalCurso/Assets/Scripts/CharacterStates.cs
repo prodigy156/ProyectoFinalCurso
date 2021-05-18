@@ -229,5 +229,6 @@ public class CharacterStates : MonoBehaviour
     public void ChangeSide(bool _isASide)
     {
         isASide = _isASide;
+        transform.eulerAngles = new Vector3(0, transform.rotation.eulerAngles.y + 180, 0);
     }
 }
