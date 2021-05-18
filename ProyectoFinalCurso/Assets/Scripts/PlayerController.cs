@@ -73,7 +73,7 @@ public class PlayerController : MonoBehaviour
 
         if (inputValue < 0 && !flip)
         {
-            Debug.Log(inputValue);
+            //Debug.Log(inputValue);
 
             yRotation += rotationSpeed * Time.deltaTime;
             LastKey = 1;
@@ -148,5 +148,10 @@ public class PlayerController : MonoBehaviour
     public void PlayerCanMove(bool _canMove)
     {
         canMove = _canMove;
+    }
+
+    public void SetPos(float distance)
+    {
+
     }
 }

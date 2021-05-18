@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3619488008031361598}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.737, z: 0}
+  m_LocalPosition: {x: 0, y: -0.804, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3829753981621158119}
@@ -40,7 +40,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3829753981621158119}
   - component: {fileID: 1323391912427737527}
-  - component: {fileID: 2324015883034403907}
+  - component: {fileID: 3976579252071821128}
   m_Layer: 0
   m_Name: Player 1
   m_TagString: Player
@@ -82,7 +82,7 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2324015883034403907
+--- !u!114 &3976579252071821128
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -91,14 +91,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 3829753981621158114}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c44bf053e5081744680f51f97c31e7e2, type: 3}
+  m_Script: {fileID: 11500000, guid: a6b771f84ba2baa479c46ace6ab3ec16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: {fileID: 1323391912427737527}
   box: {fileID: 3829753983177201065}
   speed: 6
   turnSpeed: 1000
-  gravity: -24
+  gravity: -9.81
   groundCheck: {fileID: 1638025778237297034}
   groundDistance: 0.1
   groundMask:

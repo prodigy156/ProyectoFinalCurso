@@ -135,7 +135,6 @@ public class CharacterStates : MonoBehaviour
 
                 nextObjectState.transform.position = transformMatrix.MultiplyPoint(new Vector3(0, 0, 0));
 
-                float controlSign = nextObjectState.transform.lossyScale.x > 0 ? 1 : -1;
                 nextObjectState.transform.rotation = Quaternion.Euler(0, 0, 0);
                 rotatingToA = true;
             }
@@ -229,5 +228,6 @@ public class CharacterStates : MonoBehaviour
     public void ChangeSide(bool _isASide)
     {
         isASide = _isASide;
+        transform.eulerAngles = new Vector3(0, transform.rotation.eulerAngles.y + 180, 0);
     }
 }

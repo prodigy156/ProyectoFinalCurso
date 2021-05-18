@@ -81,12 +81,15 @@
     <Compile Include="Assets\MainMenu\Script\ScriptLoadEditor.cs" />
     <Compile Include="Assets\MainMenu\Script\ScriptOptions.cs" />
     <Compile Include="Assets\MainMenu\Script\ScriptPlay.cs" />
+    <Compile Include="Assets\MainMenu\Script\ScriptSkin.cs" />
     <Compile Include="Assets\MainMenu\Script\joinCreator.cs" />
     <Compile Include="Assets\Scripts\Box.cs" />
     <Compile Include="Assets\Scripts\CamRotator.cs" />
     <Compile Include="Assets\Scripts\CharacterMovement.cs" />
     <Compile Include="Assets\Scripts\CharacterStates.cs" />
+    <Compile Include="Assets\Scripts\Door.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Key.cs" />
     <Compile Include="Assets\Scripts\NormalAsset.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\PlayerManager.cs" />
@@ -293,16 +296,16 @@
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.3f1/Editor/Data/Managed/UnityEditor.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Data.Sqlite">
-      <HintPath>E:/IFP/IFP2/PROYECTO/ProyectoFinalCurso/ProyectoFinalCurso/Assets/Plugins/Mono.Data.Sqlite.dll</HintPath>
+      <HintPath>E:/IFP/IFP2/PROYECTO/ProyectoFinalCurso - copia/ProyectoFinalCurso/Assets/Plugins/Mono.Data.Sqlite.dll</HintPath>
     </Reference>
     <Reference Include="System.Configuration">
-      <HintPath>E:/IFP/IFP2/PROYECTO/ProyectoFinalCurso/ProyectoFinalCurso/Assets/Plugins/System.Configuration.dll</HintPath>
+      <HintPath>E:/IFP/IFP2/PROYECTO/ProyectoFinalCurso - copia/ProyectoFinalCurso/Assets/Plugins/System.Configuration.dll</HintPath>
     </Reference>
     <Reference Include="System.EnterpriseServices">
-      <HintPath>E:/IFP/IFP2/PROYECTO/ProyectoFinalCurso/ProyectoFinalCurso/Assets/Plugins/System.EnterpriseServices.dll</HintPath>
+      <HintPath>E:/IFP/IFP2/PROYECTO/ProyectoFinalCurso - copia/ProyectoFinalCurso/Assets/Plugins/System.EnterpriseServices.dll</HintPath>
     </Reference>
     <Reference Include="System.Security">
-      <HintPath>E:/IFP/IFP2/PROYECTO/ProyectoFinalCurso/ProyectoFinalCurso/Assets/Plugins/System.Security.dll</HintPath>
+      <HintPath>E:/IFP/IFP2/PROYECTO/ProyectoFinalCurso - copia/ProyectoFinalCurso/Assets/Plugins/System.Security.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.3f1/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>
@@ -650,73 +653,73 @@
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.3f1/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.Xml.Serialization.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline.Editor">
-      <HintPath>E:/IFP/IFP2/PROYECTO/ProyectoFinalCurso/ProyectoFinalCurso/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+      <HintPath>E:/IFP/IFP2/PROYECTO/ProyectoFinalCurso - copia/ProyectoFinalCurso/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.Animation.Runtime">
-      <HintPath>E:/IFP/IFP2/PROYECTO/ProyectoFinalCurso/ProyectoFinalCurso/Library/ScriptAssemblies/Unity.2D.Animation.Runtime.dll</HintPath>
+      <HintPath>E:/IFP/IFP2/PROYECTO/ProyectoFinalCurso - copia/ProyectoFinalCurso/Library/ScriptAssemblies/Unity.2D.Animation.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.PixelPerfect.Editor">
-      <HintPath>E:/IFP/IFP2/PROYECTO/ProyectoFinalCurso/ProyectoFinalCurso/Library/ScriptAssemblies/Unity.2D.PixelPerfect.Editor.dll</HintPath>
+      <HintPath>E:/IFP/IFP2/PROYECTO/ProyectoFinalCurso - copia/ProyectoFinalCurso/Library/ScriptAssemblies/Unity.2D.PixelPerfect.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VSCode.Editor">
-      <HintPath>E:/IFP/IFP2/PROYECTO/ProyectoFinalCurso/ProyectoFinalCurso/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+      <HintPath>E:/IFP/IFP2/PROYECTO/ProyectoFinalCurso - copia/ProyectoFinalCurso/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>E:/IFP/IFP2/PROYECTO/ProyectoFinalCurso/ProyectoFinalCurso/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>E:/IFP/IFP2/PROYECTO/ProyectoFinalCurso - copia/ProyectoFinalCurso/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>E:/IFP/IFP2/PROYECTO/ProyectoFinalCurso/ProyectoFinalCurso/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+      <HintPath>E:/IFP/IFP2/PROYECTO/ProyectoFinalCurso - copia/ProyectoFinalCurso/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline">
-      <HintPath>E:/IFP/IFP2/PROYECTO/ProyectoFinalCurso/ProyectoFinalCurso/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+      <HintPath>E:/IFP/IFP2/PROYECTO/ProyectoFinalCurso - copia/ProyectoFinalCurso/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.Animation.Triangle.Runtime">
-      <HintPath>E:/IFP/IFP2/PROYECTO/ProyectoFinalCurso/ProyectoFinalCurso/Library/ScriptAssemblies/Unity.2D.Animation.Triangle.Runtime.dll</HintPath>
+      <HintPath>E:/IFP/IFP2/PROYECTO/ProyectoFinalCurso - copia/ProyectoFinalCurso/Library/ScriptAssemblies/Unity.2D.Animation.Triangle.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="PsdPlugin">
-      <HintPath>E:/IFP/IFP2/PROYECTO/ProyectoFinalCurso/ProyectoFinalCurso/Library/ScriptAssemblies/PsdPlugin.dll</HintPath>
+      <HintPath>E:/IFP/IFP2/PROYECTO/ProyectoFinalCurso - copia/ProyectoFinalCurso/Library/ScriptAssemblies/PsdPlugin.dll</HintPath>
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
-      <HintPath>E:/IFP/IFP2/PROYECTO/ProyectoFinalCurso/ProyectoFinalCurso/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+      <HintPath>E:/IFP/IFP2/PROYECTO/ProyectoFinalCurso - copia/ProyectoFinalCurso/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Rider.Editor">
-      <HintPath>E:/IFP/IFP2/PROYECTO/ProyectoFinalCurso/ProyectoFinalCurso/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+      <HintPath>E:/IFP/IFP2/PROYECTO/ProyectoFinalCurso - copia/ProyectoFinalCurso/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Mathematics">
-      <HintPath>E:/IFP/IFP2/PROYECTO/ProyectoFinalCurso/ProyectoFinalCurso/Library/ScriptAssemblies/Unity.Mathematics.dll</HintPath>
+      <HintPath>E:/IFP/IFP2/PROYECTO/ProyectoFinalCurso - copia/ProyectoFinalCurso/Library/ScriptAssemblies/Unity.Mathematics.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.Psdimporter.Editor">
-      <HintPath>E:/IFP/IFP2/PROYECTO/ProyectoFinalCurso/ProyectoFinalCurso/Library/ScriptAssemblies/Unity.2D.Psdimporter.Editor.dll</HintPath>
+      <HintPath>E:/IFP/IFP2/PROYECTO/ProyectoFinalCurso - copia/ProyectoFinalCurso/Library/ScriptAssemblies/Unity.2D.Psdimporter.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.InternalAPIEngineBridge.001">
-      <HintPath>E:/IFP/IFP2/PROYECTO/ProyectoFinalCurso/ProyectoFinalCurso/Library/ScriptAssemblies/Unity.InternalAPIEngineBridge.001.dll</HintPath>
+      <HintPath>E:/IFP/IFP2/PROYECTO/ProyectoFinalCurso - copia/ProyectoFinalCurso/Library/ScriptAssemblies/Unity.InternalAPIEngineBridge.001.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.Sprite.Editor">
-      <HintPath>E:/IFP/IFP2/PROYECTO/ProyectoFinalCurso/ProyectoFinalCurso/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
+      <HintPath>E:/IFP/IFP2/PROYECTO/ProyectoFinalCurso - copia/ProyectoFinalCurso/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.Common.Runtime">
-      <HintPath>E:/IFP/IFP2/PROYECTO/ProyectoFinalCurso/ProyectoFinalCurso/Library/ScriptAssemblies/Unity.2D.Common.Runtime.dll</HintPath>
+      <HintPath>E:/IFP/IFP2/PROYECTO/ProyectoFinalCurso - copia/ProyectoFinalCurso/Library/ScriptAssemblies/Unity.2D.Common.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.PixelPerfect">
-      <HintPath>E:/IFP/IFP2/PROYECTO/ProyectoFinalCurso/ProyectoFinalCurso/Library/ScriptAssemblies/Unity.2D.PixelPerfect.dll</HintPath>
+      <HintPath>E:/IFP/IFP2/PROYECTO/ProyectoFinalCurso - copia/ProyectoFinalCurso/Library/ScriptAssemblies/Unity.2D.PixelPerfect.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.Animation.Editor">
-      <HintPath>E:/IFP/IFP2/PROYECTO/ProyectoFinalCurso/ProyectoFinalCurso/Library/ScriptAssemblies/Unity.2D.Animation.Editor.dll</HintPath>
+      <HintPath>E:/IFP/IFP2/PROYECTO/ProyectoFinalCurso - copia/ProyectoFinalCurso/Library/ScriptAssemblies/Unity.2D.Animation.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Mathematics.Editor">
-      <HintPath>E:/IFP/IFP2/PROYECTO/ProyectoFinalCurso/ProyectoFinalCurso/Library/ScriptAssemblies/Unity.Mathematics.Editor.dll</HintPath>
+      <HintPath>E:/IFP/IFP2/PROYECTO/ProyectoFinalCurso - copia/ProyectoFinalCurso/Library/ScriptAssemblies/Unity.Mathematics.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>E:/IFP/IFP2/PROYECTO/ProyectoFinalCurso/ProyectoFinalCurso/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>E:/IFP/IFP2/PROYECTO/ProyectoFinalCurso - copia/ProyectoFinalCurso/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.Common.Editor">
-      <HintPath>E:/IFP/IFP2/PROYECTO/ProyectoFinalCurso/ProyectoFinalCurso/Library/ScriptAssemblies/Unity.2D.Common.Editor.dll</HintPath>
+      <HintPath>E:/IFP/IFP2/PROYECTO/ProyectoFinalCurso - copia/ProyectoFinalCurso/Library/ScriptAssemblies/Unity.2D.Common.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.InternalAPIEditorBridge.001">
-      <HintPath>E:/IFP/IFP2/PROYECTO/ProyectoFinalCurso/ProyectoFinalCurso/Library/ScriptAssemblies/Unity.InternalAPIEditorBridge.001.dll</HintPath>
+      <HintPath>E:/IFP/IFP2/PROYECTO/ProyectoFinalCurso - copia/ProyectoFinalCurso/Library/ScriptAssemblies/Unity.InternalAPIEditorBridge.001.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UI">
-      <HintPath>E:/IFP/IFP2/PROYECTO/ProyectoFinalCurso/ProyectoFinalCurso/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+      <HintPath>E:/IFP/IFP2/PROYECTO/ProyectoFinalCurso - copia/ProyectoFinalCurso/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup></ItemGroup>
