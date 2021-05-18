@@ -6,24 +6,13 @@ public class NormalAsset : MonoBehaviour
 {
     public int posY;
     public int posX;
+    public int posZ;
     public int twoP;
     public int sideA;
 
-
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void SetValues()
     {
-        Vector3 position = new Vector3(posX, posY * -1, 0);
+        Vector3 position = new Vector3(posX, posY * -1, posZ);
 
         transform.position = position;
     }

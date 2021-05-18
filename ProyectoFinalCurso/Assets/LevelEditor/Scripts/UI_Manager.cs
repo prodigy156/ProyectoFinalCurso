@@ -9,8 +9,13 @@ public class UI_Manager : MonoBehaviour
     public Text assetsText;
     public Text oneSideText;
     public Text twoSidesText;
-    public RectTransform save;
-    public RectTransform flip;
+
+
+    public Text saveBottonText;
+    public Text saveInputFieldText;
+    public Text saveInputFieldPlaceHolder;
+    public Text flipButtonText;
+    public Text existingLevelText;
 
     float width;
     // Update is called once per frame
@@ -37,7 +42,11 @@ public class UI_Manager : MonoBehaviour
             oneSideText.fontSize = (int)width /12;
             twoSidesText.fontSize = (int)width /12;
 
-            //save.sizeDelta
+            saveBottonText.fontSize = (int)saveBottonText.rectTransform.rect.width / 4;
+            saveInputFieldText.fontSize = (int)saveInputFieldText.rectTransform.rect.width / 10;
+            saveInputFieldPlaceHolder.fontSize = (int)saveInputFieldText.rectTransform.rect.width /10;
+            flipButtonText.fontSize = (int)flipButtonText.rectTransform.rect.width / 4;
+            existingLevelText.fontSize = (int)existingLevelText.rectTransform.rect.width / 6;
         }
     }
 }
