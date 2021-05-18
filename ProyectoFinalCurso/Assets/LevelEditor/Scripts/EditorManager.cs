@@ -103,7 +103,7 @@ public class EditorManager : MonoBehaviour
 
         GridManager.instance.EnableCurrentDisableOtherGrid((int)currentSide);
 
-        CreateWalls();
+        //CreateWalls();
     }
 
     // Update is called once per frame

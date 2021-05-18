@@ -6,7 +6,7 @@ public class NormalAsset : MonoBehaviour
 {
     public int posY;
     public int posX;
-    public int posZ;
+    public float posZ;
     public int twoP;
     public int sideA;
 
