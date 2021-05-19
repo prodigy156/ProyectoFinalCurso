@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EditorManager : MonoBehaviour
 {
@@ -649,5 +650,11 @@ public class EditorManager : MonoBehaviour
             asset = Instantiate(InvisibleWall2P, gridA[0,gridHeight - 1].transform.position + new Vector3(0.5f * i, -0.5f, 0), Quaternion.identity);
             asset.transform.SetParent(LevelSideA);
         }
+    }
+
+    public void ExitLevelEditor()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 2);
+
     }
 }

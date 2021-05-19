@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -53,10 +54,12 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         bool wantsToDoAction = Input.GetKey(KeyCode.UpArrow);
 
         if (wantsToDoAction && cam.IsStopped() && onPortal)
         {
+
             cam.RotateCam();
             cam.IsSideA(aSide);
             aSide = !aSide;
@@ -117,5 +120,10 @@ public class GameManager : MonoBehaviour
     public void PlayerMightExit(bool _mightExit)
     {
         mightExit = _mightExit;
+    }
+
+    public void ExitLoadLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 3);
     }
 }

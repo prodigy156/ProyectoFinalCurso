@@ -33,6 +33,8 @@ public class LoadLevel : MonoBehaviour
 
     public GameObject[] prefabs;
 
+    public GameObject pauseManager;
+
     void Start()
     {
         connectionString = Application.dataPath + "/Database/FlipBoard.db";
@@ -42,6 +44,7 @@ public class LoadLevel : MonoBehaviour
         }
 
         gameManagerObject.SetActive(false);
+        pauseManager.SetActive(false);
         ListExistingTables();
     }
 
@@ -154,6 +157,7 @@ public class LoadLevel : MonoBehaviour
         dbconn = null;
 
         gameManagerObject.SetActive(true);
+        pauseManager.SetActive(true);
 
         StartCoroutine(StartProcedure());
     }
