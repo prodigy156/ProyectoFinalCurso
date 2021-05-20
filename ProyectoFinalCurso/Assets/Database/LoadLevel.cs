@@ -37,7 +37,7 @@ public class LoadLevel : MonoBehaviour
 
     void Start()
     {
-        connectionString = Application.dataPath + "/Database/FlipBoard.db";
+        connectionString = Application.dataPath + "/StreamingAssets/FlipBoard.db";
         for (int i = 0; i < objectsToHide.Length; i++)
         {
            gameobjectsToHide[i].SetActive(false);

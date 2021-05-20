@@ -29,7 +29,7 @@ public class DatabaseManager : MonoBehaviour
 
     void Start()
     {
-        connectionString = Application.dataPath + "/Database/FlipBoard.db";
+        connectionString = Application.dataPath + "/StreamingAssets/FlipBoard.db";
         //SpawnObjectsFromDatabase();
         ListExistingTables();
     }
