@@ -14,7 +14,8 @@ public class EditorAsset : MonoBehaviour
         oneByOne,
         twoByOne,
         twoByTwo,
-        twoByFour
+        twoByFour,
+        threeByTwo,
     }
     public AssetSize size;
 

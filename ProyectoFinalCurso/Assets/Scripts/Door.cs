@@ -13,13 +13,13 @@ public class Door : MonoBehaviour
 
     private void Awake()
     {
-        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        
     }
 
     // Start is called before the first frame update
     void Start()
     {
-
+        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
     }
 
     public void HasKey()

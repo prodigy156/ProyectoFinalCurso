@@ -17,6 +17,8 @@ public class UI_Manager : MonoBehaviour
     public Text flipButtonText;
     public Text existingLevelText;
 
+    public Text exitText;
+
     float width;
     // Update is called once per frame
     void Update()
@@ -47,6 +49,8 @@ public class UI_Manager : MonoBehaviour
             saveInputFieldPlaceHolder.fontSize = (int)saveInputFieldText.rectTransform.rect.width /10;
             flipButtonText.fontSize = (int)flipButtonText.rectTransform.rect.width / 4;
             existingLevelText.fontSize = (int)existingLevelText.rectTransform.rect.width / 6;
+
+            exitText.fontSize = (int)exitText.rectTransform.rect.width / 4;
         }
     }
 }

@@ -155,12 +155,44 @@ public class CharacterMovement : MonoBehaviour
         }
     }
 
+     /// <summary>
+    /// OnControllerColliderHit is called when the controller hits a
+    /// collider while performing a Move.
+    /// </summary>
+    /// <param name="hit">The ControllerColliderHit data associated with this collision.</param>
+    void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        Rigidbody body = hit.collider.attachedRigidbody;
+
+        //no rigidbody
+        if(body == null || body.isKinematic)
+        {
+            return;
+        }
+
+        // We dont want to push objects below us
+        if (hit.moveDirection.y < -0.3)
+        {
+            return;
+        }
+
+        // Calculate push direction from move direction,
+        // we only push objects to the sides never up and down
+        Vector3 pushDir = new Vector3(hit.moveDirection.x, 0, 0);
+
+        // If you know how fast your character is trying to move,
+        // then you can also multiply the push velocity by that.
+
+        // Apply the push
+        body.velocity = pushDir.normalized * speed/2;
+        Debug.Log(body.velocity);
+    }
+
     //checks if character is on A side or B side on the map
     public void SetPos(float distance)
     {
         isASide = !isASide;
         controller.Move(new Vector3(0, 0, distance * 2));
-
         characterStates.ChangeSide(isASide);
     }
 

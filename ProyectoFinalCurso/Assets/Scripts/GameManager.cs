@@ -23,6 +23,11 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        
+    }
+
+    private void Start()
+    {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterMovement>();
         cam = GameObject.FindGameObjectWithTag("CamRotator").GetComponent<CamRotator>();
         door = GameObject.FindGameObjectWithTag("Door").GetComponent<Door>();
@@ -46,16 +51,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        
-    }
-
     // Update is called once per frame
     void Update()
     {
 
-        bool wantsToDoAction = Input.GetKey(KeyCode.UpArrow);
+        bool wantsToDoAction = Input.GetKey(KeyCode.F);
 
         if (wantsToDoAction && cam.IsStopped() && onPortal)
         {
@@ -94,6 +94,7 @@ public class GameManager : MonoBehaviour
             else
             {
                 Debug.Log("Next level");
+                SceneManager.LoadScene("MainMenu");
             }
         }
 

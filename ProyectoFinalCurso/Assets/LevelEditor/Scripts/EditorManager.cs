@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class EditorManager : MonoBehaviour
@@ -12,6 +13,8 @@ public class EditorManager : MonoBehaviour
     public LayerMask assetLayer;
     public Transform LevelSideA;
     public Transform LevelSideB;
+
+    public Button saveButton;
 
     bool drawing = true;//true if asset selected, false if eraser selected
 
@@ -25,6 +28,9 @@ public class EditorManager : MonoBehaviour
     public GameObject FloorWall1P;
     public GameObject Key;
     public GameObject SpawnBox;
+
+    public GameObject Door;
+    public GameObject Portal;
 
 
     bool instantiated = false;
@@ -42,6 +48,8 @@ public class EditorManager : MonoBehaviour
     
      
     public EditorAsset editorAsset;
+
+
 
     bool spawnBoxCreated, keyCreated, doorCreated;
     
@@ -137,6 +145,12 @@ public class EditorManager : MonoBehaviour
                 break;
             case Assets.SpawnBox:
                 unit = SpawnBox;
+                break;
+            case Assets.Door:
+                unit = Door;
+                break;
+            case Assets.Portal:
+                unit = Portal;
                 break;
             default:
             break;
@@ -239,8 +253,22 @@ public class EditorManager : MonoBehaviour
         GameObject[,] grid;
         GameObject[,] opositeGrid;
 
-        if(currentAsset == Assets.SpawnBox){ spawnBoxCreated = true;}
-        if(currentAsset == Assets.Door){ doorCreated = true;}
+        if(currentAsset == Assets.SpawnBox)
+        {
+            spawnBoxCreated = true;
+            if(doorCreated)
+            {
+                saveButton.interactable = true;
+            }
+        }
+        if(currentAsset == Assets.Door)
+        {
+            doorCreated = true;
+            if(spawnBoxCreated)
+            {
+                saveButton.interactable = true;
+            }
+        }
         if(currentAsset == Assets.Key){ keyCreated = true;}
 
         if ( currentSide == Side.A)
@@ -305,6 +333,14 @@ public class EditorManager : MonoBehaviour
                 grid[posX+2, posY+1].gameObject.GetComponent<GridSquare>().available = false;
                 grid[posX+3, posY+1].gameObject.GetComponent<GridSquare>().available = false;
             break;
+            case 4:
+                grid[posX, posY].gameObject.GetComponent<GridSquare>().available = false;
+                grid[posX, posY+1 ].gameObject.GetComponent<GridSquare>().available = false;
+                grid[posX, posY+2 ].gameObject.GetComponent<GridSquare>().available = false;
+                grid[posX+1, posY].gameObject.GetComponent<GridSquare>().available = false;
+                grid[posX+1, posY+1].gameObject.GetComponent<GridSquare>().available = false;
+                grid[posX+1, posY+2].gameObject.GetComponent<GridSquare>().available = false;
+            break;
             default:
             break;
         }
@@ -334,6 +370,14 @@ public class EditorManager : MonoBehaviour
                     opositeGrid[opositePosX + 1, posY + 1].gameObject.GetComponent<GridSquare>().available = false;
                     opositeGrid[opositePosX + 2, posY + 1].gameObject.GetComponent<GridSquare>().available = false;
                     opositeGrid[opositePosX + 3, posY + 1].gameObject.GetComponent<GridSquare>().available = false;
+                    break;
+                case 4:
+                    opositeGrid[opositePosX, posY].gameObject.GetComponent<GridSquare>().available = false;
+                opositeGrid[opositePosX, posY+1 ].gameObject.GetComponent<GridSquare>().available = false;
+                opositeGrid[opositePosX, posY+2 ].gameObject.GetComponent<GridSquare>().available = false;
+                opositeGrid[opositePosX+1, posY].gameObject.GetComponent<GridSquare>().available = false;
+                opositeGrid[opositePosX+1, posY+1].gameObject.GetComponent<GridSquare>().available = false;
+                opositeGrid[opositePosX+1, posY+2].gameObject.GetComponent<GridSquare>().available = false;
                     break;
                 default:
                     break;
@@ -487,6 +531,32 @@ public class EditorManager : MonoBehaviour
                     Debug.Log("fuera");
                 }
             break;
+            case 4:
+                if(posX+1 < gridWidth &&  posY+2 < gridHeight)
+                {
+                    if(!grid[posX, posY].gameObject.GetComponent<GridSquare>().available ||
+                    !grid[posX, posY+1 ].gameObject.GetComponent<GridSquare>().available ||
+                    !grid[posX, posY+2 ].gameObject.GetComponent<GridSquare>().available ||
+                    !grid[posX+1, posY].gameObject.GetComponent<GridSquare>().available ||
+                    !grid[posX+1, posY+1].gameObject.GetComponent<GridSquare>().available ||
+                    !grid[posX+1, posY+2].gameObject.GetComponent<GridSquare>().available)
+                    {
+                        draggedAsset.GetComponent<SpriteRenderer>().material.color = Color.red;
+                        canPlace = false;
+                    }
+                    else
+                    {
+                        draggedAsset.GetComponent<SpriteRenderer>().material.color = Color.white;
+                        canPlace = true;
+                    }
+                }
+                else 
+                {
+                    draggedAsset.GetComponent<SpriteRenderer>().material.color = Color.red; 
+                    canPlace = false;
+                    Debug.Log("fuera");
+                }
+            break;
             default:
             break;
         }
@@ -582,11 +652,38 @@ public class EditorManager : MonoBehaviour
                         Debug.Log("fuera");
                     }
                     break;
+                case 4:
+                    opositePosX -= 1;
+                    if(posX+1 < gridWidth &&  posY+2 < gridHeight)
+                {
+                    if(!opositeGrid[opositePosX, posY].gameObject.GetComponent<GridSquare>().available ||
+                    !opositeGrid[opositePosX, posY+1 ].gameObject.GetComponent<GridSquare>().available ||
+                    !opositeGrid[opositePosX, posY+2 ].gameObject.GetComponent<GridSquare>().available ||
+                    !opositeGrid[opositePosX+1, posY].gameObject.GetComponent<GridSquare>().available ||
+                    !opositeGrid[opositePosX+1, posY+1].gameObject.GetComponent<GridSquare>().available ||
+                    !opositeGrid[opositePosX+1, posY+2].gameObject.GetComponent<GridSquare>().available)
+                    {
+                            draggedAsset.GetComponent<SpriteRenderer>().material.color = Color.red;
+                            canPlace = false;
+                        }
+                        else
+                        {
+                            draggedAsset.GetComponent<SpriteRenderer>().material.color = Color.white;
+                            canPlace = true;
+                        }
+                    }
+                    else
+                    {
+                        draggedAsset.GetComponent<SpriteRenderer>().material.color = Color.red;
+                        canPlace = false;
+                        Debug.Log("fuera");
+                    }
+                    break;
                 default:
                     break;
             }
         }
-        if(currentSide == Side.B && currentAsset == Assets.SpawnBox || currentAsset == Assets.Door)
+        if(currentSide == Side.B && currentAsset == Assets.SpawnBox || currentSide == Side.B && currentAsset == Assets.Door)
         {
             draggedAsset.GetComponent<SpriteRenderer>().material.color = Color.red;
             canPlace = false;
@@ -657,4 +754,6 @@ public class EditorManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 2);
 
     }
+
+
 }
